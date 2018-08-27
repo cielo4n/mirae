@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200sp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <RelativeLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/edit_timer_memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="7"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:layout_marginLeft="10dp"
+            />
+        <TextView
+            android:layout_alignBaseline="@id/edit_timer_memo"
+            android:layout_toLeftOf="@id/edit_timer_memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="알람 메모"/>
+
+    </RelativeLayout>
+
+    <TimePicker
+        android:id="@+id/tp_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:timePickerMode="spinner"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="현재시간으로부터 위의 시간 이후\n알람이 울립니다"
+        android:textSize="14sp"/>
+</LinearLayout>

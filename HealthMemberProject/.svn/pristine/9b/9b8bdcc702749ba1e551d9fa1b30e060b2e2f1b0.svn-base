@@ -1,0 +1,114 @@
+package health.database;
+
+import java.sql.*;
+import javax.swing.table.DefaultTableModel;
+
+public class PriceDao {
+
+	//유일하게 자기 자신을 참조할 수 있는 변수
+	private static PriceDao instance; 
+	
+	//데이터베이스 정보
+	private static final String DBName="healthdb"; //데이터베이스이름은 이거로 한다
+	private static final String DBUser = "root";
+	private static final String DBPassword = "123456";
+	
+	private String url= "jdbc:mysql://localhost/"+DBName;
+	private String jdbc_driver = "com.mysql.jdbc.Driver";
+	
+	private static Connection conn = null;
+	private static Statement stmt = null;
+	private static PreparedStatement pstmt = null;
+	private static ResultSet rs = null;
+	private static String sql = null;
+
+	//private 생성자
+	private PriceDao(){
+		try{
+			Class.forName(jdbc_driver); //드라이버 로드
+			conn = DriverManager.getConnection(url, DBUser, DBPassword); //Connection 연결
+		} catch(ClassNotFoundException e){
+			System.out.println("드라이버를 찾을 수 없습니다");
+		} catch(SQLException e) {
+			System.out.println("Connection 연결 실패");
+		} 
+	}
+	
+	//public 자기자신 반환
+	public static PriceDao getInstance() {
+		if(instance == null) //참조변수가 null일 때는 생성자 호출
+			instance = new PriceDao();
+		return instance;
+	}
+
+	//연결 종료
+	private void disConnect(){
+		try{
+			if(rs != null) rs.close();
+			if(stmt != null) stmt.close();
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
+			System.out.println("종료됨");
+		} catch(SQLException e) {
+			System.out.println("종료 안됨");
+			e.printStackTrace();
+		}
+	}
+	
+	//8. 매출보기(연간매출) 테이블에 연결할 수 있게 DefaultTableModel을 반환
+	public DefaultTableModel selectYearPrice(String gym_id){
+		String colNames[] = {"연도", "매출"};
+		DefaultTableModel model = new DefaultTableModel(colNames, 0);
+		
+		try{
+			stmt = conn.createStatement();
+			sql = "SELECT reg.year, SUM(price.price_term) "
+					+ "FROM reg LEFT JOIN price ON reg.reg_term=price.reg_term "
+					+ "WHERE reg.gym_id='"+gym_id+"' "
+					+ "GROUP BY reg.year "
+					+ "ORDER BY reg.year ASC";
+			rs = stmt.executeQuery(sql);
+
+			while(rs.next()){
+				model.addRow(new Object[]{
+						rs.getInt("year"), rs.getInt("SUM(price.price_term)")
+				});	
+			}
+			return model;
+		} catch(SQLException e) {
+			System.out.println("selectYearPrice 실패");
+			e.printStackTrace();
+			return null;
+		} 
+		//disConnect는 아래 월간매출에서 연결 끊는다
+	}
+	
+	//9. 매출보기(월간매출)
+	public DefaultTableModel selectMonthPrice(String gym_id, int year){
+		String colNames[] = {"년", "월", "매출"};
+		DefaultTableModel model = new DefaultTableModel(colNames, 0); //열이름, 행수
+		
+		try{
+			stmt = conn.createStatement();
+			sql = "SELECT reg.year, reg.month, SUM(price.price_term) FROM reg LEFT JOIN price "
+					+ "ON reg.reg_term=price.reg_term "
+					+ "GROUP BY reg.month HAVING year="+year+
+					 " ORDER BY reg.year, reg.month ASC";
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()){
+				model.addRow(new Object[]{
+						rs.getInt("year"), rs.getInt("month"), rs.getInt("SUM(price.price_term)")
+				});	
+			}
+			return model;
+			
+		} catch(SQLException e) {
+			System.out.println("selectMonthPrice 실패");
+			e.printStackTrace();
+			return null;
+		} finally{
+			disConnect();
+		}
+	}
+}

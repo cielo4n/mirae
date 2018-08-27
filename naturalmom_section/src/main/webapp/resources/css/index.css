@@ -1,0 +1,57 @@
+@charset "utf-8";
+
+@import url(common.css);
+
+
+/*메인배너
+--------------------------------------------*/
+#main_banner {
+	background-image : url("../images/main_banner_big.jpg");
+	background-repeat : no-repeat;
+	height : 337px;
+} 
+/* 상품나열
+---------------------------------------------*/
+#content p:first-child {
+	clear : both;
+	padding-top : 20px;
+	padding-bottom : 10px;
+	padding-left : 10px;
+	text-decoration : underline;
+	color : #635353;
+}
+#content div {
+	border : 1px solid #cec5ce;
+	margin : 20px 10px;
+	text-align : center;
+	color : #85858d;
+	padding-bottom : 5px;
+	width : 31%;
+	float : left;
+}
+#content div img {
+	width : 100%;
+	border-bottom : 1px dotted #cec5ce;
+}
+#content div span{
+	font-size : 90%;
+}
+
+/* 회사이념
+------------------------------------------*/
+#info_naturalmom{ 
+	clear : both; 
+	margin-left : 25px;
+	width : 95%; 
+}
+
+/* 기타배너(주문마감, 회원가입, 배송안내, 입금안내)
+---------------------------------------------------*/
+aside { 
+	text-align : center; 
+	padding-top : 30px;		
+}
+aside img {
+	width : 23%;
+	margin : 5px;
+}

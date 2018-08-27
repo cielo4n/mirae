@@ -1,0 +1,5 @@
+
+--
+--
+CREATE VIEW V_EVENT_LIST_RN AS
+SELECT A.* FROM (SELECT rownum as evt_rnum, V.* from V_EVENT_LIST V ORDER BY V.EVENT_NO DESC) A;

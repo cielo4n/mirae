@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 파일 불러오는 부분. -->
+	<beans:import resource="domain-sm-context.xml"/>
+	<beans:import resource="domain-sr-context.xml"/>
+	<beans:import resource="domain-se-context.xml"/>
+	<beans:import resource="domain-sj-context.xml"/>
+	
+	<beans:import resource="email_conf.xml"/>
+	
+	<!-- Controller -->
+	<beans:bean id="indexCtl" class="com.nmom.soap.controller.IndexController">
+	</beans:bean>
+ 	<beans:bean id="memberCtl" class="com.nmom.soap.controller.MemberController">
+		<beans:property name="memberSvc">
+			<beans:ref local="memberSvc"/>
+		</beans:property> 
+		<beans:property name="emailSvc">
+			<beans:ref local="myEmailSvc" />
+		</beans:property>
+	</beans:bean>
+	<beans:bean id="eventCtl" class="com.nmom.soap.controller.EventController">
+		<beans:property name="eventSvc">
+			<beans:ref local="eventSvc"/>
+		</beans:property>
+		<beans:property name="eventReSvc">
+			<beans:ref local="eventReSvc"/>
+		</beans:property>
+		<beans:property name="boardAccessSvc">
+			<beans:ref local="boardAccessSvc"/>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="reviewCtl" class="com.nmom.soap.controller.ReviewController">
+		<beans:property name="reviewSvc">
+			<beans:ref local="reviewSvc"/>
+		</beans:property>
+		<beans:property name="review_reSvc">
+			<beans:ref local="review_reSvc"/>
+		</beans:property>
+		<beans:property name="review_adminSvc">
+			<beans:ref local="vReview_adminSvc"/>
+		</beans:property>
+		<beans:property name="review_frontSvc">
+			<beans:ref local="vReview_frontSvc"/>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="productCtl" class="com.nmom.soap.controller.ProductController">
+		<beans:property name="productSvc">
+			<beans:ref local="productSvc"/>
+		</beans:property>
+		<beans:property name="product_deletedSvc">
+			<beans:ref local="vProduct_deletedSvc"/>
+		</beans:property>
+		<beans:property name="product_manageSvc">
+			<beans:ref local="vProduct_manageSvc"/>
+		</beans:property>
+		<beans:property name="categorySvc">
+			<beans:ref local="category_svc"/>
+		</beans:property>
+		<beans:property name="reviewSvc">
+			<beans:ref local="reviewSvc"/>
+		</beans:property>
+		<beans:property name="review_reSvc">
+			<beans:ref local="review_reSvc"/>
+		</beans:property>
+		<beans:property name="review_frontSvc">
+			<beans:ref local="vReview_frontSvc"/>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="salesCtl" class="com.nmom.soap.controller.SalesController">
+		<beans:property name="rank_sellsSvc">
+			<beans:ref local="vRank_sellsSvc"/>
+		</beans:property>
+		<beans:property name="saleStatementSvc">
+			<beans:ref local="saleStatementSvc"/>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="orderCtl" class="com.nmom.soap.controller.OrderController">
+		<beans:property name="orderSvc">
+			<beans:ref local="orderSvc" />
+		</beans:property>
+		<beans:property name="productOrderSvc">
+			<beans:ref local="productOrderSvc" />
+		</beans:property>
+		<beans:property name="vOrderListSvc">
+			<beans:ref local="vOrderListSvc" />
+		</beans:property>	
+		<beans:property name="vOrderManagerSvc">
+			<beans:ref local="vOrderManagerSvc" />
+		</beans:property>	
+		<beans:property name="vOrdererSvc">
+			<beans:ref local="vOrdererSvc" />
+		</beans:property>	
+		<beans:property name="v_cart_product_svc">
+			<beans:ref local="v_cart_product_svc" />
+		</beans:property>
+		<beans:property name="productSvc">
+			<beans:ref local="productSvc"/>
+		</beans:property>
+		<beans:property name="cartSvc">
+			<beans:ref local="cart_svc"/>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="cartCtl" class="com.nmom.soap.controller.CartController">
+		<beans:property name="cartSvc">
+			<beans:ref local="cart_svc"/>
+		</beans:property>
+		<beans:property name="vCartProductSvc">
+			<beans:ref local="v_cart_product_svc"/>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="interestCtl" class="com.nmom.soap.controller.InterestController">
+		<beans:property name="interestSvc">
+			<beans:ref local="interest_svc"/>
+		</beans:property>
+		<beans:property name="vInterestProductSvc">
+			<beans:ref local="v_interest_product_svc"/>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="faqCtl" class="com.nmom.soap.controller.FaqController">
+		<beans:property name="faqSvc">
+			<beans:ref local="faq_svc"/>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="qnaCtl" class="com.nmom.soap.controller.QnaController">
+		<beans:property name="qnaSvc">
+			<beans:ref local="qna_svc"/>
+		</beans:property>
+		<beans:property name="qnaReSvc">
+			<beans:ref local="qnare_svc"/>
+		</beans:property>
+		<beans:property name="vQnaQnareSvc">
+			<beans:ref local="v_qna_qnare_svc"/>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="noticeCtl" class="com.nmom.soap.controller.NoticeController">
+		<beans:property name="noticeSvc">
+			<beans:ref local="noticeSvc"/>
+		</beans:property>
+		<beans:property name="noticeReSvc">
+			<beans:ref local="noticeReSvc"/>
+		</beans:property>
+		<beans:property name="vNoticeSvc">
+			<beans:ref local="vNoticeSvc"/>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="multipartResolver" 
+ 	class="org.springframework.web.multipart.commons.CommonsMultipartResolver" 
+ 	p:maxUploadSize="104857600" p:maxInMemorySize="104857600"> 		
+	</beans:bean>
+	
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+ <!-- 	<context:component-scan base-package="com.nmom.soap" />  -->
+		
+</beans:beans>

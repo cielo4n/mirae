@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15sp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="알람시간" />
+
+        <TimePicker
+            android:id="@+id/tp_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:timePickerMode="spinner">
+
+        </TimePicker>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ToggleButton
+                android:id="@+id/tb_week_mon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:textOn="월"
+                android:textOff="월"
+                android:background="@drawable/selector_toggle_button_week"
+                />
+
+            <ToggleButton
+                android:id="@+id/tb_week_tues"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/selector_toggle_button_week"
+                android:textOn="화"
+                android:textOff="화"/>
+
+            <ToggleButton
+                android:id="@+id/tb_week_wednes"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/selector_toggle_button_week"
+                android:textOn="수"
+                android:textOff="수"/>
+
+            <ToggleButton
+                android:id="@+id/tb_week_thurs"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/selector_toggle_button_week"
+                android:textOn="목"
+                android:textOff="목"/>
+
+            <ToggleButton
+                android:id="@+id/tb_week_fri"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/selector_toggle_button_week"
+                android:textOn="금"
+                android:textOff="금"/>
+
+            <ToggleButton
+                android:id="@+id/tb_week_satur"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/selector_toggle_button_week"
+                android:textOn="토"
+                android:textOff="토"/>
+
+            <ToggleButton
+                android:id="@+id/tb_week_sun"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/selector_toggle_button_week"
+                android:textOn="일"
+                android:textOff="일"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:weightSum="7">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="반복" />
+
+            <CheckBox
+                android:id="@+id/chk_repeat_week"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="알람음" />
+
+            <TextView
+                android:id="@+id/btn_choice_alarm"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="3"
+                android:text="알람음 선택"
+                android:gravity="center"
+                android:background="@drawable/shape_week_off"
+                android:clickable="true"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="타입" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="소리 " />
+
+                <CheckBox
+                    android:checked="true"
+                    android:id="@+id/chk_sound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="right"
+                    android:text="진동 " />
+
+                <CheckBox
+                    android:checked="true"
+                    android:id="@+id/chk_vibration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="볼륨" />
+
+            <SeekBar
+                android:id="@+id/seek_volume"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:weightSum="4">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="다시울림" />
+
+            <TextView
+                android:id="@+id/btn_rering"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="다시울림 없음"
+                android:gravity="center"
+                android:background="@drawable/shape_week_off"
+                android:clickable="true"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="메모" />
+
+            <EditText
+                android:id="@+id/edit_alarm_memo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:singleLine="true"
+                android:textSize="14sp"
+                android:maxLength="16"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

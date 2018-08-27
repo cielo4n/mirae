@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.bazak.alarmistiming.Game1to50Activity"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#505050">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 to 50"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#ffffff"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1부터 50까지 순서대로 숫자를 선택하세요"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="#ffffff"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6.5"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="#ffffff">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="5">
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn01"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn02"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn03"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn04"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn05"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="5">
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn06"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn07"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn08"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn09"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn10"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="5">
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn11"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn12"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn13"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn14"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn15"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="5">
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn16"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn17"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn18"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn19"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn20"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="5">
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn21"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn22"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn23"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn24"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/img_btn25"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clickable="true"
+                android:onClick="gameOnClick"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="#ffffff">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="최단기록 "/>
+            <TextView
+                android:id="@+id/game_1to50_bestrecord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/cur_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현재숫자"
+                android:textSize="18dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현재기록 "/>
+            <TextView
+                android:id="@+id/cur_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffffff">
+    <Button
+        android:onClick="mOnClick"
+        android:id="@+id/btn_game_1to50_complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="확인"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        />
+    </LinearLayout>
+</LinearLayout>

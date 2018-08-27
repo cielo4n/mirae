@@ -1,0 +1,237 @@
+package health.ui;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JTextField;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+public class HealthMemberJoinDialog extends JDialog {
+ private JTextField tf_health_memberjoin_name;
+ private JTextField tf_health_memberjoin_phone;
+ private JTextField tf_health_memberjoin_address;
+ private JTextField tf_health_memberjoin_birth;
+ private JTextField tf_health_memberjoin_weight;
+ private JTextField tf_health_memberjoin_height;
+ private JTextField tf_health_join_year;
+ private JTextField tf_health_join_month;
+ private JTextField tf_health_join_day;
+ /**
+  * Launch the application.
+  */
+ public static void main(String[] args) {
+	 
+	 
+  EventQueue.invokeLater(new Runnable() {
+   public void run() {
+    try {
+    	HealthMemberJoinDialog dialog = new HealthMemberJoinDialog(new HealthMainScreen()); //여기
+     dialog.setVisible(true);
+    } catch (Exception e) {
+     e.printStackTrace();
+    }
+   }
+  });
+ }
+ /**
+  * Create the frame.
+  */
+ public HealthMemberJoinDialog(final HealthMainScreen owner) { //여기
+	 super(owner);
+	 setResizable(false);
+	 setModal(true);
+
+	 setTitle("새 회원 등록");
+	 
+  setBounds(100, 100, 460, 650);
+  setLocationRelativeTo(null);
+  
+  JLayeredPane layeredPane = new JLayeredPane();
+  getContentPane().add(layeredPane, BorderLayout.CENTER);
+  
+  JLabel lb_health_memberjoin_name = new JLabel("이름");
+  lb_health_memberjoin_name.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_health_memberjoin_name.setBounds(12, 29, 48, 18);
+  layeredPane.add(lb_health_memberjoin_name);
+  
+  JLabel lb_health_memberjoin_phone = new JLabel("연락처");
+  lb_health_memberjoin_phone.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_health_memberjoin_phone.setBounds(12, 66, 48, 18);
+  layeredPane.add(lb_health_memberjoin_phone);
+  
+  JLabel lb_health_memberjoin_address = new JLabel("주소");
+  lb_health_memberjoin_address.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_health_memberjoin_address.setBounds(12, 104, 41, 15);
+  layeredPane.add(lb_health_memberjoin_address);
+  
+  JLabel lb_health_memberjoin_birth = new JLabel("생년월일");
+  lb_health_memberjoin_birth.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_health_memberjoin_birth.setBounds(12, 144, 68, 24);
+  layeredPane.add(lb_health_memberjoin_birth);
+  
+  JLabel lb_health_memberjoin_pc = new JLabel("체형");
+  lb_health_memberjoin_pc.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_health_memberjoin_pc.setBounds(12, 316, 48, 18);
+  layeredPane.add(lb_health_memberjoin_pc);
+  
+  JLabel lb_health_memberjoin_height = new JLabel("키");
+  lb_health_memberjoin_height.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_health_memberjoin_height.setBounds(12, 226, 57, 15);
+  layeredPane.add(lb_health_memberjoin_height);
+  
+  JLabel lb_health_memberjoin_weight = new JLabel("몸무게");
+  lb_health_memberjoin_weight.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_health_memberjoin_weight.setBounds(12, 270, 57, 15);
+  layeredPane.add(lb_health_memberjoin_weight);
+  
+  JLabel lb_health_memberjoin_gender = new JLabel("성별");
+  lb_health_memberjoin_gender.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_health_memberjoin_gender.setBounds(12, 188, 48, 18);
+  layeredPane.add(lb_health_memberjoin_gender);
+  
+  JLabel lb_health_memberjoin_join = new JLabel("등록일");
+  lb_health_memberjoin_join.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_health_memberjoin_join.setBounds(12, 472, 57, 15);
+  layeredPane.add(lb_health_memberjoin_join);
+  
+  tf_health_memberjoin_name = new JTextField();
+  tf_health_memberjoin_name.setColumns(10);
+  tf_health_memberjoin_name.setBounds(107, 28, 116, 21);
+  layeredPane.add(tf_health_memberjoin_name);
+  
+  tf_health_memberjoin_phone = new JTextField();
+  tf_health_memberjoin_phone.setColumns(10);
+  tf_health_memberjoin_phone.setBounds(107, 65, 151, 21);
+  layeredPane.add(tf_health_memberjoin_phone);
+  
+  tf_health_memberjoin_address = new JTextField();
+  tf_health_memberjoin_address.setColumns(10);
+  tf_health_memberjoin_address.setBounds(107, 99, 306, 25);
+  layeredPane.add(tf_health_memberjoin_address);
+  
+  tf_health_memberjoin_birth = new JTextField();
+  tf_health_memberjoin_birth.setColumns(10);
+  tf_health_memberjoin_birth.setBounds(107, 146, 57, 24);
+  layeredPane.add(tf_health_memberjoin_birth);
+  
+  tf_health_memberjoin_weight = new JTextField();
+  tf_health_memberjoin_weight.setColumns(10);
+  tf_health_memberjoin_weight.setBounds(107, 222, 100, 24);
+  layeredPane.add(tf_health_memberjoin_weight);
+  
+  JComboBox cb_health_memberjoin_gender = new JComboBox();
+  cb_health_memberjoin_gender.setModel(new DefaultComboBoxModel(new String[] {"남성", "여성"}));
+  cb_health_memberjoin_gender.setBounds(107, 185, 68, 24);
+  layeredPane.add(cb_health_memberjoin_gender);
+  
+  JComboBox cb_health_memberjoin_pc = new JComboBox();
+  cb_health_memberjoin_pc.setModel(new DefaultComboBoxModel(new String[] {"내배엽", "중배엽", "외배엽"}));
+  cb_health_memberjoin_pc.setBounds(107, 315, 93, 21);
+  layeredPane.add(cb_health_memberjoin_pc);
+  
+  JLabel lb_health_memberjoin_month = new JLabel("등록기간");
+  lb_health_memberjoin_month.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_health_memberjoin_month.setBounds(12, 530, 57, 15);
+  layeredPane.add(lb_health_memberjoin_month);
+  
+  JLabel lb_health_memberjoin_trainer = new JLabel("담당트레이너");
+  lb_health_memberjoin_trainer.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_health_memberjoin_trainer.setBounds(12, 354, 83, 26);
+  layeredPane.add(lb_health_memberjoin_trainer);
+  
+  JButton btn_health_memberjoin2 = new JButton("취 소");
+  btn_health_memberjoin2.addActionListener(new ActionListener() {
+  	public void actionPerformed(ActionEvent e) { // 창닫히는 이벤트
+  		setVisible(false);
+  	}
+  });
+  btn_health_memberjoin2.setBounds(242, 566, 93, 36);
+  layeredPane.add(btn_health_memberjoin2);
+  
+  tf_health_memberjoin_height = new JTextField();
+  tf_health_memberjoin_height.setColumns(10);
+  tf_health_memberjoin_height.setBounds(106, 266, 100, 24);
+  layeredPane.add(tf_health_memberjoin_height);
+  
+  JComboBox cb_health_memberjoin_trainer = new JComboBox();
+  cb_health_memberjoin_trainer.setBounds(107, 357, 93, 21);
+  layeredPane.add(cb_health_memberjoin_trainer);
+  
+  tf_health_join_year = new JTextField();
+  tf_health_join_year.setColumns(10);
+  tf_health_join_year.setBounds(89, 468, 48, 24);
+  layeredPane.add(tf_health_join_year);
+  
+  tf_health_join_month = new JTextField();
+  tf_health_join_month.setColumns(10);
+  tf_health_join_month.setBounds(174, 468, 48, 24);
+  layeredPane.add(tf_health_join_month);
+  
+  tf_health_join_day = new JTextField();
+  tf_health_join_day.setColumns(10);
+  tf_health_join_day.setBounds(261, 468, 48, 24);
+  layeredPane.add(tf_health_join_day);
+  
+  JLabel lb_health_memberjoin_main = new JLabel("헬스 기간 등록");
+  lb_health_memberjoin_main.setHorizontalAlignment(SwingConstants.CENTER);
+  lb_health_memberjoin_main.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+  lb_health_memberjoin_main.setBounds(151, 412, 126, 24);
+  layeredPane.add(lb_health_memberjoin_main);
+  
+  JLabel lb_health_memberjoin_year = new JLabel("년");
+  lb_health_memberjoin_year.setHorizontalAlignment(SwingConstants.CENTER);
+  lb_health_memberjoin_year.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+  lb_health_memberjoin_year.setBounds(138, 465, 35, 24);
+  layeredPane.add(lb_health_memberjoin_year);
+  
+  JLabel lb_health_memberjoin_m = new JLabel("월");
+  lb_health_memberjoin_m.setHorizontalAlignment(SwingConstants.CENTER);
+  lb_health_memberjoin_m.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+  lb_health_memberjoin_m.setBounds(227, 465, 35, 24);
+  layeredPane.add(lb_health_memberjoin_m);
+  
+  JLabel lb_health_memberjoin_day = new JLabel("일");
+  lb_health_memberjoin_day.setHorizontalAlignment(SwingConstants.CENTER);
+  lb_health_memberjoin_day.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+  lb_health_memberjoin_day.setBounds(312, 465, 48, 24);
+  layeredPane.add(lb_health_memberjoin_day);
+  
+  JComboBox cb_health_memberjoin_month = new JComboBox();
+  cb_health_memberjoin_month.setModel(new DefaultComboBoxModel(new String[] {"1개월", "3개월", "6개월", "12개월"}));
+  cb_health_memberjoin_month.setBounds(90, 527, 93, 21);
+  layeredPane.add(cb_health_memberjoin_month);
+  
+  JButton btn_health_memberjoin = new JButton("확 인");
+//  btn_health_memberjoin.addActionListener(new ActionListener() {
+//  	public void actionPerformed(ActionEvent e) { // 확인 누르면 새회원이 등록되는이벤트
+//  	}
+//  });
+  btn_health_memberjoin.setBounds(113, 566, 93, 36);
+  layeredPane.add(btn_health_memberjoin);
+  
+  JComboBox cb_memberjoin_month = new JComboBox();
+  cb_memberjoin_month.setModel(new DefaultComboBoxModel(new String[] {"1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"}));
+  cb_memberjoin_month.setBounds(204, 146, 62, 24);
+  layeredPane.add(cb_memberjoin_month);
+  
+  JLabel lb_memberjoin_year = new JLabel("년");
+  lb_memberjoin_year.setHorizontalAlignment(SwingConstants.CENTER);
+  lb_memberjoin_year.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+  lb_memberjoin_year.setBounds(172, 144, 35, 24);
+  layeredPane.add(lb_memberjoin_year);
+  
+  JComboBox cb_memberjoin_day = new JComboBox();
+  cb_memberjoin_day.setModel(new DefaultComboBoxModel(new String[] {"1일", "2일", "3일", "4일", "5일", "6일", "7일", "8일", "9일", "10일", "11일", "12일", "13일", "14일", "15일", "16일", "17일", "18일", "19일", "20일", "21일", "22일", "23일", "24일", "25일", "26일", "27일", "28일", "29일", "30일", "31일"}));
+  cb_memberjoin_day.setBounds(284, 146, 62, 24);
+  layeredPane.add(cb_memberjoin_day);
+  setVisible(true); //여기
+ }
+}

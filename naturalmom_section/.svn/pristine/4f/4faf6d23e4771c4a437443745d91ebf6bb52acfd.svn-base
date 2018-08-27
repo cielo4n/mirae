@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.9" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <interface id="1" language="java" name="com.nmom.soap.svc.sales.ISaleStatementSvc" project="naturalmom_section" 
+    file="/naturalmom_section/src/main/java/com/nmom/soap/svc/sales/ISaleStatementSvc.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="53" width="132" x="-25" y="124"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="2" language="java" name="com.nmom.soap.svc.sales.IVRank_SellsSvc" project="naturalmom_section" 
+    file="/naturalmom_section/src/main/java/com/nmom/soap/svc/sales/IVRank_SellsSvc.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="53" width="124" x="147" y="150"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="3" language="java" name="com.nmom.soap.svc.sales.SaleStatementSvcImpl" project="naturalmom_section" 
+    file="/naturalmom_section/src/main/java/com/nmom/soap/svc/sales/SaleStatementSvcImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="53" width="153" x="103" y="317"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.nmom.soap.svc.sales.VRank_SellsSvcImpl" project="naturalmom_section" 
+    file="/naturalmom_section/src/main/java/com/nmom/soap/svc/sales/VRank_SellsSvcImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="53" width="141" x="221" y="247"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="5">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="6">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

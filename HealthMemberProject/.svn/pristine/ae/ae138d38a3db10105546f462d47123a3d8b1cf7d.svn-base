@@ -1,0 +1,413 @@
+package health.ui;
+
+import health.database.GymDao;
+import health.database.MemberDao;
+import health.database.RegDao;
+import health.database.TrainerDao;
+import health.value.StaticValues;
+
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+import javax.swing.table.*;
+
+
+public class HealthMainScreen extends JFrame {
+	private JTextField tf_health_name;
+	private JTextField tf_health_number;
+	private JTextField tf_health_phone;
+	private JTextField tf_health_address;
+	private JTextField tf_health_member_name; //헬스장메인에서 조회시 이름
+	private JTable tb_health_member;
+	private JTextField tf_health_trainer_name; //트레이너에서 조회시 이름
+	private JTable tb_health_trainer;
+	private JTextField tf_healthmember_name; //헬스등록확인에서 조회시 이름
+	private JTable tb_healthmember_search;
+
+	/**
+	 * @wbp.nonvisual location=61,19
+	 */
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) throws ClassNotFoundException,
+			InstantiationException, IllegalAccessException,
+			UnsupportedLookAndFeelException {
+		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HealthMainScreen frame = new HealthMainScreen();
+					frame.setLocationRelativeTo(null);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public HealthMainScreen() {
+/////////////////////////////////////////////////////////////////////////////////////////
+//헬스장 (메인)화면 시작
+		
+		setResizable(false);
+		setTitle("헬스장 화면");
+		getContentPane().setLayout(null);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+		tabbedPane.setBounds(0, 0, 784, 562);
+		getContentPane().add(tabbedPane);
+		
+		JPanel pn_health_main = new JPanel();
+		pn_health_main.setLayout(null);
+		tabbedPane.addTab("\uD5EC\uC2A4\uC7A5 \uBA54\uC778", null, pn_health_main, null);
+
+		JLabel lb_health_name = new JLabel("헬스장 이름");
+		lb_health_name.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_name.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_health_name.setBounds(322, 28, 134, 38);
+		pn_health_main.add(lb_health_name);
+
+		JLabel lb_health_number = new JLabel("사업자 등록번호");
+		lb_health_number.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_number.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_health_number.setBounds(322, 127, 134, 38);
+		pn_health_main.add(lb_health_number);
+
+		JLabel lb_health_phone = new JLabel("연락처");
+		lb_health_phone.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_phone.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_health_phone.setBounds(322, 237, 134, 38);
+		pn_health_main.add(lb_health_phone);
+
+		JLabel lb_health_address = new JLabel("주 소");
+		lb_health_address.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_address.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_health_address.setBounds(322, 348, 134, 38);
+		pn_health_main.add(lb_health_address);
+
+		tf_health_name = new JTextField();
+		tf_health_name.setEnabled(false);
+		tf_health_name.setBounds(293, 76, 195, 41);
+		pn_health_main.add(tf_health_name);
+		tf_health_name.setColumns(10);
+
+		tf_health_number = new JTextField();
+		tf_health_number.setEnabled(false);
+		tf_health_number.setColumns(10);
+		tf_health_number.setBounds(293, 186, 195, 41);
+		pn_health_main.add(tf_health_number);
+
+		tf_health_phone = new JTextField();
+		tf_health_phone.setEnabled(false);
+		tf_health_phone.setColumns(10);
+		tf_health_phone.setBounds(293, 297, 195, 41);
+		pn_health_main.add(tf_health_phone);
+
+		tf_health_address = new JTextField();
+		tf_health_address.setEnabled(false);
+		tf_health_address.setColumns(10);
+		tf_health_address.setBounds(241, 396, 296, 35);
+		pn_health_main.add(tf_health_address);
+
+		JButton btn_health_update = new JButton("헬스장 수정");
+		btn_health_update.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		btn_health_update.setBounds(225, 482, 120, 41);
+		pn_health_main.add(btn_health_update);
+		btn_health_update.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new HealthUpdate(HealthMainScreen.this); 
+				tf_health_name.setText(StaticValues.getSvGymDto().getGym_name());
+				tf_health_number.setText(StaticValues.getSvGymDto().getBusiness_no());
+				tf_health_phone.setText(StaticValues.getSvGymDto().getGym_tel());
+				tf_health_address.setText(StaticValues.getSvGymDto().getGym_addr());
+			}
+		});
+
+		JButton btn_health_salesview = new JButton("매출보기");
+		btn_health_salesview.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		btn_health_salesview.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new HealthSales();
+			}
+		});
+		btn_health_salesview.setBounds(454, 482, 120, 41);
+		pn_health_main.add(btn_health_salesview);
+
+		
+		//헬스장 정보 불러와서 저장함
+		StaticValues.setSvGymDto(GymDao.getInstance().selectGym(StaticValues.getSvGym_id()));
+		tf_health_name.setText(StaticValues.getSvGymDto().getGym_name());
+		tf_health_number.setText(StaticValues.getSvGymDto().getBusiness_no());
+		tf_health_phone.setText(StaticValues.getSvGymDto().getGym_tel());
+		tf_health_address.setText(StaticValues.getSvGymDto().getGym_addr());
+		
+//헬스장 (메인)화면 끝		
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//회원관리 화면 시작		
+		
+		
+		JPanel pn_health_member = new JPanel();
+		pn_health_member.setLayout(null);
+		tabbedPane.addTab("\uD68C\uC6D0\uAD00\uB9AC", null, pn_health_member,
+				null);
+
+		JButton btn_health_member_search = new JButton("조 회");
+		 btn_health_member_search.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) { 
+				 // 이름 조회 누르면 회원의 정보가 조회됨
+				 String sname = tf_health_member_name.getText();
+				 if(sname.equals("") == false){
+					 tb_health_member.setModel(MemberDao.getInstance().selectMemberSearch(StaticValues.getSvGym_id(), sname));
+				 } else {
+					tb_health_member.setModel(MemberDao.getInstance().selectMemberAll(StaticValues.getSvGym_id()));
+				 }
+				 tf_health_member_name.setText("");
+			 }
+		 });
+		 
+		btn_health_member_search.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_member_search.setBounds(620, 64, 97, 23);
+		pn_health_member.add(btn_health_member_search);
+
+		JLabel lb_health_member_name = new JLabel("\uC774\uB984");
+		lb_health_member_name.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_member_name.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_health_member_name.setBounds(402, 68, 57, 19);
+		pn_health_member.add(lb_health_member_name);
+
+		tf_health_member_name = new JTextField();
+		tf_health_member_name.setBounds(465, 59, 138, 38);
+		pn_health_member.add(tf_health_member_name);
+		tf_health_member_name.setColumns(10);
+
+		JButton btn_health_memberview = new JButton("회원 상세보기");
+		btn_health_memberview.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//테이블에서 행을 선택해서 아이디를 뽑아내는 부분
+				int row = tb_health_member.getSelectedRow(); //선택된 행을 반환
+				if(row == -1)  return; //아무것도 선택 안되었으면 리턴
+				int smem_no = (int)tb_health_member.getValueAt(row, 0); //행의 0번째열 값 반환
+				
+				StaticValues.setSvMemDto(MemberDao.getInstance().selectMember(smem_no)); //저장
+				new HealthMemberViewDialog(); // 회원상세보기 이벤트
+//////////////////////////////////
+//헬스기간을 등록하면 헬스등록확인테이블이 바뀌어야 함
+/////////////////////////////////				
+			}
+		});
+		btn_health_memberview.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_memberview.setBounds(98, 418, 145, 38);
+		pn_health_member.add(btn_health_memberview);
+
+		JButton btn_health_member_update = new JButton("회원수정");
+		btn_health_member_update.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // 회원수정버튼 누르면 다이얼로그뜸
+				new HealthMemberUpdateDialog(HealthMainScreen.this);
+				//////////////////////////////////////////////////////
+				////////////////////////////////////////////////////////
+			}
+		});
+		btn_health_member_update.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_member_update.setBounds(321, 418, 145, 38);
+		pn_health_member.add(btn_health_member_update);
+
+		JButton btn_health_memberjoin = new JButton("새 회원 등록");
+		btn_health_memberjoin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // 새 회원 등록 이벤트
+				new HealthMemberJoinDialog(HealthMainScreen.this);
+				/////////////////////////////////////////////////
+				//////////////////////////////////////////////
+			}
+		});
+		btn_health_memberjoin.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_memberjoin.setBounds(542, 418, 145, 38);
+		pn_health_member.add(btn_health_memberjoin);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(61, 136, 672, 211);
+		pn_health_member.add(scrollPane);
+
+		tb_health_member = new JTable();
+		scrollPane.setViewportView(tb_health_member);
+		tb_health_member.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //추가함
+		tb_health_member.setModel(MemberDao.getInstance().selectMemberAll(StaticValues.getSvGym_id()));
+		
+		JLabel lb_member_main = new JLabel("회원관리");
+		lb_member_main.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_member_main.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		lb_member_main.setBounds(61, 34, 97, 28);
+		pn_health_member.add(lb_member_main);
+		tb_health_member.getColumnModel().getColumn(0).setPreferredWidth(50);
+		tb_health_member.getColumnModel().getColumn(1).setPreferredWidth(30);
+		tb_health_member.getColumnModel().getColumn(2).setPreferredWidth(50);
+		tb_health_member.getColumnModel().getColumn(3).setPreferredWidth(30);
+
+//회원관리 화면 끝		
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//트레이너 관리화면 시작
+		
+		JPanel pn_health_trainer = new JPanel();
+		pn_health_trainer.setLayout(null);
+		tabbedPane.addTab("\uD2B8\uB808\uC774\uB108 \uAD00\uB9AC", null,
+				pn_health_trainer, null);
+
+		JLabel lb_health_trainer_name = new JLabel("이 름");
+		lb_health_trainer_name.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_trainer_name.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_health_trainer_name.setBounds(402, 68, 57, 19);
+		pn_health_trainer.add(lb_health_trainer_name);
+
+		tf_health_trainer_name = new JTextField();
+		tf_health_trainer_name.setColumns(10);
+		tf_health_trainer_name.setBounds(465, 59, 138, 38);
+		pn_health_trainer.add(tf_health_trainer_name);
+
+		JButton btn_health_trainer_name = new JButton("조 회");
+		btn_health_trainer_name.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_trainer_name.setBounds(620, 64, 97, 23);
+		pn_health_trainer.add(btn_health_trainer_name);
+		
+		btn_health_trainer_name.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) { 
+				 // 트레이너 이름과 조회버튼을 누르면 트레이너 정보를보여줌
+				 String trainer_name = tf_health_trainer_name.getText();
+				 if(trainer_name.equals("") == false){
+					 tb_health_trainer.setModel(TrainerDao.getInstance().selectTrainerSearch(StaticValues.getSvGym_id(), trainer_name));
+				 } else {
+						tb_health_trainer.setModel(TrainerDao.getInstance().selectTrainerAll(StaticValues.getSvGym_id()));
+				 }
+				 tf_health_trainer_name.setText("");
+		 }
+		 });
+		
+		JButton btn_health_trainerview = new JButton("트레이너 상세보기");
+		btn_health_trainerview.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // 트레이너 상세보기 이벤트
+				new HealthTrainerViewDialog();
+			}
+		});
+		btn_health_trainerview.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_trainerview.setBounds(98, 418, 163, 38);
+		pn_health_trainer.add(btn_health_trainerview);
+
+		JButton btn_health_trainerupdate = new JButton("트레이너 수정");
+		btn_health_trainerupdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // 트레이너 수정 버튼 이벤트
+				new HealthTrainerUpdateDialog(HealthMainScreen.this);
+			}
+		});
+		btn_health_trainerupdate.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_trainerupdate.setBounds(321, 418, 145, 38);
+		pn_health_trainer.add(btn_health_trainerupdate);
+
+		JButton btn_health_trainerjoin = new JButton("트레이너 등록");
+		btn_health_trainerjoin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // 트레이너등록 다이얼로그가 나오게함
+				new HealthTrainerJoinDialog(HealthMainScreen.this);
+				tb_health_trainer.setModel(TrainerDao.getInstance().selectTrainerAll(StaticValues.getSvGym_id()));
+			}
+		});
+		btn_health_trainerjoin.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_trainerjoin.setBounds(542, 418, 145, 38);
+		pn_health_trainer.add(btn_health_trainerjoin);
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(62, 136, 674, 211);
+		pn_health_trainer.add(scrollPane_1);
+
+		tb_health_trainer = new JTable();
+		scrollPane_1.setViewportView(tb_health_trainer);
+		
+		tb_health_trainer.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //추가함
+		tb_health_trainer.setModel(TrainerDao.getInstance().selectTrainerAll(StaticValues.getSvGym_id()));
+		
+		JLabel lb_trainer_main = new JLabel("트레이너 관리");
+		lb_trainer_main.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_trainer_main.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		lb_trainer_main.setBounds(61, 34, 145, 28);
+		pn_health_trainer.add(lb_trainer_main);
+		tb_health_trainer.getColumnModel().getColumn(0).setPreferredWidth(60);
+		tb_health_trainer.getColumnModel().getColumn(1).setPreferredWidth(50);
+		tb_health_trainer.getColumnModel().getColumn(2).setPreferredWidth(60);
+		tb_health_trainer.getColumnModel().getColumn(3).setPreferredWidth(50);
+
+//트레이너 관리 끝		
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//헬스 등록 확인 시작		
+
+		JPanel pn_health_join = new JPanel();
+		pn_health_join.setLayout(null);
+		tabbedPane.addTab("\uD5EC\uC2A4\uC7A5\uB4F1\uB85D \uD655\uC778", null,
+				pn_health_join, null);
+
+		JLabel lb_healthmember_name = new JLabel("회원이름");
+		lb_healthmember_name.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_healthmember_name.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_healthmember_name.setBounds(402, 68, 70, 19);
+		pn_health_join.add(lb_healthmember_name);
+
+		tf_healthmember_name = new JTextField();
+		tf_healthmember_name.setColumns(10);
+		tf_healthmember_name.setBounds(470, 61, 138, 38);
+		pn_health_join.add(tf_healthmember_name);
+
+		JButton btn_healthmember_ok = new JButton("조 회");
+		 btn_healthmember_ok.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) { 
+				 // 회원이름과 조회버튼을 누르면 회원의 등록헬스정보를보여줌
+				 String mem_name = tf_healthmember_name.getText();
+				 if(mem_name.equals("") == false){
+					 tb_healthmember_search.setModel(RegDao.getInstance().selectRegSearch(StaticValues.getSvGym_id(), mem_name));
+				 } else {
+					tb_healthmember_search.setModel(RegDao.getInstance().selectRegAll(StaticValues.getSvGym_id()));
+				 }
+				 tf_healthmember_name.setText("");
+		 }
+		 });
+		btn_healthmember_ok.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_healthmember_ok.setBounds(620, 66, 97, 23);
+		pn_health_join.add(btn_healthmember_ok);
+
+		JLabel lb_health_main = new JLabel("헬스등록 확인");
+		lb_health_main.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_main.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		lb_health_main.setBounds(61, 34, 165, 28);
+		pn_health_join.add(lb_health_main);
+
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(62, 136, 674, 337);
+		pn_health_join.add(scrollPane_2);
+
+		tb_healthmember_search = new JTable();
+		scrollPane_2.setViewportView(tb_healthmember_search);
+		tb_healthmember_search.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //추가함
+		tb_healthmember_search.setModel(RegDao.getInstance().selectRegAll(StaticValues.getSvGym_id()));
+
+		tb_healthmember_search.getColumnModel().getColumn(0)
+				.setPreferredWidth(60);
+		tb_healthmember_search.getColumnModel().getColumn(1)
+				.setPreferredWidth(60);
+		tb_healthmember_search.getColumnModel().getColumn(2)
+				.setPreferredWidth(50);
+		tb_healthmember_search.getColumnModel().getColumn(3)
+				.setPreferredWidth(50);
+		tb_healthmember_search.getColumnModel().getColumn(4)
+				.setPreferredWidth(60);
+
+//회원 등록 확인 끝		
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 600);
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+}

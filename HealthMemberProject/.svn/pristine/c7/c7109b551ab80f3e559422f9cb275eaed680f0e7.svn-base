@@ -1,0 +1,144 @@
+package health.ui;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextArea;
+import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+public class AdminMainViewDialog extends JDialog {
+ private JPanel contentPane;
+ private JTextField tf_admin_health_number;
+ private JTextField tf_admin_health_name;
+ private JTextField tf_admin_health_phone;
+ private JTextField tf_admin_health_id;
+ private JPasswordField passwordField;
+ private JTextField tf_admin_health_address;
+ /**
+  * Launch the application.
+  */
+ public static void main(String[] args) {
+  EventQueue.invokeLater(new Runnable() {
+   public void run() {
+    try {
+    	AdminMainViewDialog dialog = new AdminMainViewDialog();
+     dialog.setVisible(true);
+    } catch (Exception e) {
+     e.printStackTrace();
+    }
+   }
+  });
+ }
+ /**
+  * Create the frame.
+  */
+ public AdminMainViewDialog() {
+ 	setResizable(false);
+ 	setModal(true);
+ 	setTitle("«ÔΩ∫¿Â ªÛºº∫∏±‚");
+  setBounds(100, 100, 300, 374);
+  contentPane = new JPanel();
+  contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+  contentPane.setLayout(new BorderLayout(0, 0));
+  setContentPane(contentPane);
+  
+  JLayeredPane layeredPane = new JLayeredPane();
+  contentPane.add(layeredPane, BorderLayout.CENTER);
+  
+  JLabel lb_admin_health_id = new JLabel("æ∆¿Ãµ");
+  lb_admin_health_id.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 12));
+  lb_admin_health_id.setBounds(12, 29, 57, 15);
+  layeredPane.add(lb_admin_health_id);
+  
+  JLabel lb_admin_health_pw = new JLabel("∆–Ω∫øˆµÂ");
+  lb_admin_health_pw.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 12));
+  lb_admin_health_pw.setBounds(12, 54, 69, 15);
+  layeredPane.add(lb_admin_health_pw);
+  
+  JLabel lb_admin_health_number = new JLabel("ªÁæ˜¿⁄ µÓ∑œπ¯»£");
+  lb_admin_health_number.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 12));
+  lb_admin_health_number.setBounds(12, 113, 95, 22);
+  layeredPane.add(lb_admin_health_number);
+  
+  JLabel lb_admin_health_name = new JLabel("«ÔΩ∫¿Â ¿Ã∏ß");
+  lb_admin_health_name.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 12));
+  lb_admin_health_name.setBounds(12, 151, 69, 15);
+  layeredPane.add(lb_admin_health_name);
+  
+  JLabel lb_admin_health_address = new JLabel("¡÷º“");
+  lb_admin_health_address.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 12));
+  lb_admin_health_address.setBounds(12, 176, 57, 15);
+  layeredPane.add(lb_admin_health_address);
+  
+  JLabel lb_admin_health_phone = new JLabel("¿¸»≠π¯»£");
+  lb_admin_health_phone.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 12));
+  lb_admin_health_phone.setBounds(12, 232, 69, 15);
+  layeredPane.add(lb_admin_health_phone);
+  
+  JButton btn_healthview_ok = new JButton("»Æ¿Œ");
+  btn_healthview_ok.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 13));
+  btn_healthview_ok.addActionListener(new ActionListener() {
+  	public void actionPerformed(ActionEvent e) { //«ÔΩ∫¿Â ªÛºº∫∏±‚πˆ∆∞ ¥©∏£∏È¥›»˚
+  		setVisible(false);
+  	}
+  });
+  btn_healthview_ok.setBounds(39, 272, 82, 34);
+  layeredPane.add(btn_healthview_ok);
+  
+  tf_admin_health_number = new JTextField();
+  tf_admin_health_number.setEnabled(false);
+  tf_admin_health_number.setBounds(122, 114, 116, 21);
+  layeredPane.add(tf_admin_health_number);
+  tf_admin_health_number.setColumns(10);
+  
+  tf_admin_health_name = new JTextField();
+  tf_admin_health_name.setEnabled(false);
+  tf_admin_health_name.setColumns(10);
+  tf_admin_health_name.setBounds(122, 148, 116, 21);
+  layeredPane.add(tf_admin_health_name);
+  
+  tf_admin_health_phone = new JTextField();
+  tf_admin_health_phone.setEnabled(false);
+  tf_admin_health_phone.setColumns(10);
+  tf_admin_health_phone.setBounds(103, 230, 135, 22);
+  layeredPane.add(tf_admin_health_phone);
+  
+  tf_admin_health_id = new JTextField();
+  tf_admin_health_id.setEnabled(false);
+  tf_admin_health_id.setBounds(122, 26, 116, 21);
+  layeredPane.add(tf_admin_health_id);
+  tf_admin_health_id.setColumns(10);
+  
+  passwordField = new JPasswordField();
+  passwordField.setEnabled(false);
+  passwordField.setBounds(122, 53, 116, 21);
+  layeredPane.add(passwordField);
+  
+  JButton btn_healthview_delete = new JButton("«ÔΩ∫¿Â ªË¡¶");
+//  btn_healthview_delete.addActionListener(new ActionListener() {
+//  	public void actionPerformed(ActionEvent e) { // ¥©∏£∏È «ÔΩ∫¿ÂªË¡¶ ƒ⁄∏‡∆Æ∞°≥™ø¿∞Ì «ÔΩ∫¿Â¿Ã ªË¡¶µ«¥¬¿Ã∫•∆Æ
+//  		WarningMessage wm = new WarningMessage();
+//  		// ªË¡¶¡∂∞«¡÷∞Ì
+//  		wm.HealthDelete();
+//  	}
+//  });
+  btn_healthview_delete.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 13));
+  btn_healthview_delete.setBounds(134, 272, 104, 34);
+  layeredPane.add(btn_healthview_delete);
+  
+  tf_admin_health_address = new JTextField();
+  tf_admin_health_address.setEnabled(false);
+  tf_admin_health_address.setBounds(12, 201, 226, 21);
+  layeredPane.add(tf_admin_health_address);
+  tf_admin_health_address.setColumns(10);
+  setVisible(true); 
+ }
+} 

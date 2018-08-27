@@ -1,0 +1,146 @@
+package health.ui;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class HealthMemberTermDialog extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
+	private JTextField tf_term_year;
+	private JTextField tf_term_month;
+	private JTextField tf_term_day;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			HealthMemberTermDialog dialog = new HealthMemberTermDialog();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public HealthMemberTermDialog() {
+		setResizable(false);
+		setModal(true);
+		setTitle("Çï½º±â°£ µî·Ï");
+		setBounds(100, 100, 410, 280);
+		 setLocationRelativeTo(null);
+		getContentPane().setLayout(null);
+		contentPanel.setLayout(new FlowLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+		{
+			JLabel lb_health_term_rg = new JLabel("µî·ÏÀÏ");
+			lb_health_term_rg.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+			lb_health_term_rg.setBounds(41, 62, 47, 23);
+			getContentPane().add(lb_health_term_rg);
+		}
+		{
+			JLabel lb_health_term_rg2 = new JLabel("µî·Ï±â°£");
+			lb_health_term_rg2.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+			lb_health_term_rg2.setBounds(41, 132, 58, 30);
+			getContentPane().add(lb_health_term_rg2);
+		}
+		{
+			tf_term_year = new JTextField();
+			tf_term_year.setBounds(100, 62, 65, 25);
+			getContentPane().add(tf_term_year);
+			tf_term_year.setColumns(10);
+		}
+		{
+			tf_term_month = new JTextField();
+			tf_term_month.setColumns(10);
+			tf_term_month.setBounds(188, 62, 65, 25);
+			getContentPane().add(tf_term_month);
+		}
+		{
+			tf_term_day = new JTextField();
+			tf_term_day.setColumns(10);
+			tf_term_day.setBounds(278, 62, 65, 25);
+			getContentPane().add(tf_term_day);
+		}
+		{
+			JLabel lb_term_year = new JLabel("³â");
+			lb_term_year.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 15));
+			lb_term_year.setBounds(166, 57, 25, 30);
+			getContentPane().add(lb_term_year);
+		}
+		{
+			JComboBox cb_term_month = new JComboBox();
+			cb_term_month.setModel(new DefaultComboBoxModel(new String[] {"1°³¿ù", "3°³¿ù", "6°³¿ù","12°³¿ù"}));
+			cb_term_month.setBounds(100, 137, 80, 23);
+			getContentPane().add(cb_term_month);
+		}
+		{
+			JLabel lb_term_month = new JLabel("¿ù");
+			lb_term_month.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 15));
+			lb_term_month.setBounds(258, 57, 25, 30);
+			getContentPane().add(lb_term_month);
+		}
+		{
+			JLabel lb_term_day = new JLabel("ÀÏ");
+			lb_term_day.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 15));
+			lb_term_day.setBounds(347, 57, 25, 30);
+			getContentPane().add(lb_term_day);
+		}
+		{
+			JButton btn_term_ok = new JButton("È® ÀÎ");
+//			btn_term_ok.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent e) { // È®ÀÎ¹öÆ°´©¸£¸é È¸¿øÀÇÇï½º±â°£ÀÌµî·ÏµÇ´ÂÀÌº¥Æ®
+//					
+//				}
+//			});
+			btn_term_ok.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 15));
+			btn_term_ok.setBounds(84, 200, 97, 23);
+			getContentPane().add(btn_term_ok);
+		}
+		{
+			JButton btn_term_cancel = new JButton("Ãë ¼Ò");
+			btn_term_cancel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) { // Ãë¼Ò´©¸£¸é Ã¢´ÝÈû
+					setVisible(false);
+				}
+			});
+			btn_term_cancel.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 15));
+			btn_term_cancel.setBounds(229, 200, 97, 23);
+			getContentPane().add(btn_term_cancel);
+		}
+		setVisible(true);
+	}
+
+}

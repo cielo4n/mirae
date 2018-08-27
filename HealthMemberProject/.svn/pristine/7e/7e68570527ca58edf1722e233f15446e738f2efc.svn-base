@@ -1,0 +1,102 @@
+package health.ui;
+
+import javax.swing.JOptionPane;
+
+public class WarningMessage {
+	int abc;
+
+	public void MainScreenLoginWarning()  // 메인 화면에서 로그인시 없는 사용자일때 
+	{
+		JOptionPane.showMessageDialog(null, "등록된 사용자의 정보가 아닙니다.", "미 등록 정보", JOptionPane.ERROR_MESSAGE);
+	}
+
+	public void MainScreenJoinPassward()  // 메인 화면에서 관리자 등록시 패스워드가 불일치할떄
+	{
+		JOptionPane.showMessageDialog(null, "패스워드가 동일한지 확인해주세요", "패스워드 불일치", JOptionPane.WARNING_MESSAGE);
+	}
+
+	public void MainScreenJoinSuccess() // 메인 화면에서 관리자 등록시 성공적으로 등록 완료되었을때
+	{
+		JOptionPane.showMessageDialog(null, "성공적으로 등록되었습니다.", "아이디 등록 완료", JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	public void HealthJoin() // 헬스장 등록시 성공적으로 등록완료되었을때
+	{
+		JOptionPane.showMessageDialog(null, "성공적으로 등록되었습니다.", "헬스장 등록완료", JOptionPane.PLAIN_MESSAGE);
+	}
+
+	public void HealthUpdateSuccess()  // 헬스장 수정할때 수정이 성공적으로 되었을때
+	{
+		JOptionPane.showMessageDialog(null, "성공적으로 수정되었습니다.", "헬스장 수정완료", JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	public void HealthDelete()  // 헬스장 삭제할때 
+	{
+		abc = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?", "헬스장 삭제", JOptionPane.YES_NO_OPTION);
+		if (abc == JOptionPane.YES_OPTION) {
+			JOptionPane.showMessageDialog(null, "삭제 완료되었습니다.", "헬스장 삭제 완료", JOptionPane.PLAIN_MESSAGE);
+		} else if (abc == JOptionPane.NO_OPTION) {
+			JOptionPane.showMessageDialog(null, "헬스장너 삭제가 취소되었습니다.", "헬스장 삭제 취소", JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
+		}
+	}
+
+	public void TrainerUpdateSuccess()  // 트레이너 수정할때 성공적으로 수정되었을때
+	{
+		JOptionPane.showMessageDialog(null, "성공적으로 수정되었습니다.", "트레이너 수정완료", JOptionPane.PLAIN_MESSAGE);
+	}
+
+	public void TrainerDelete()  // 트레이너 삭제할때
+	{
+		abc = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?", "트레이너 삭제", JOptionPane.YES_NO_OPTION);
+		if (abc == JOptionPane.YES_OPTION) {
+			JOptionPane.showMessageDialog(null, "삭제 완료되었습니다.", "트레이너 삭제 완료", JOptionPane.PLAIN_MESSAGE);
+		} else if (abc == JOptionPane.NO_OPTION) {
+			JOptionPane.showMessageDialog(null, "트레이너 삭제가 취소되었습니다.", "트레이너 삭제 취소", JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
+		}
+	}
+
+	public void TrainerJoin()  // 트레이너 등록시 성공적으로 등록완료되었을때
+	{
+		JOptionPane.showMessageDialog(null, "성공적으로 등록되었습니다.", "트레이너 등록완료", JOptionPane.PLAIN_MESSAGE);
+	}
+
+	public void BlankWarning() // 회원등록,트레이너등록 ( 새롭게 등록할때 빈칸을 처리하지 않고 누른경우)
+	{
+		JOptionPane.showMessageDialog(null, "빈칸을 빠짐없이 입력해주세요.", "미 입력 내용", JOptionPane.ERROR_MESSAGE);
+	}
+
+	public void MemberUpdate()  // 회원 수정시 성공적으로 수정되었을때
+	{
+		JOptionPane.showMessageDialog(null, "성공적으로 수정되었습니다.", "회원 수정완료", JOptionPane.PLAIN_MESSAGE);
+	}
+
+	public void MemberDelete()  // 회원 삭제할때
+	{
+		abc = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?", "회원 삭제", JOptionPane.YES_NO_OPTION);
+		if(abc == JOptionPane.YES_OPTION) { 
+			JOptionPane.showMessageDialog(null, "삭제 완료되었습니다.", "회원 삭제 완료", JOptionPane.PLAIN_MESSAGE);
+		} else if(abc == JOptionPane.NO_OPTION){
+			JOptionPane.showMessageDialog(null, "회원 삭제가 취소되었습니다.", "회원 삭제 취소", JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
+		}
+	}
+	public void MemberJoin() // 회원 등록시 성공적으로 등록완료되었을때
+	{
+		JOptionPane.showMessageDialog(null, "성공적으로 등록되었습니다.", "회원등록 완료", JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	public void HealthRegister() // 헬스 기간등록할때 성공적으로 등록완료 메세지
+	{
+		JOptionPane.showMessageDialog(null, "헬스등록 완료되었습니다.", "헬스등록 완료", JOptionPane.PLAIN_MESSAGE);
+	}
+	
+
+	public static void main(String[] args) {
+		WarningMessage wm = new WarningMessage();
+		wm.TrainerDelete();
+
+	}
+
+}

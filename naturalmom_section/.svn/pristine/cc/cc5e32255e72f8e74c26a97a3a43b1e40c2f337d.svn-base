@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+		
+<!-- DAO -->
+	<bean id="productDao" class="com.nmom.soap.data.impl.product.ProductDaoOraImpl">
+		<property name="dataSource">
+			<ref local="ds"/>
+		</property>
+	</bean>	
+	
+	<bean id="review_reDao" class="com.nmom.soap.data.impl.board.review.Review_ReDaoOraImpl">
+		<property name="dataSource">
+			<ref local="ds"/>
+		</property>
+	</bean>
+
+	<bean id="reviewDao" class="com.nmom.soap.data.impl.board.review.ReviewDaoOraImpl">
+		<property name="dataSource">
+			<ref local="ds"/>
+		</property>
+	</bean>
+	
+	<bean id="vProduct_DeletedDao" class="com.nmom.soap.data.impl.product.VProduct_DeletedDaoOraImpl">
+		<property name="dataSource">
+			<ref local="ds"/>
+		</property>
+	</bean>
+	
+	<bean id="vProduct_ManageDao" class="com.nmom.soap.data.impl.product.VProduct_ManageDaoOraImpl">
+		<property name="dataSource">
+			<ref local="ds"/>
+		</property>
+	</bean>
+	
+	<bean id="vRank_SellsDao" class="com.nmom.soap.data.impl.sales.VRank_SellsDaoOraImpl">
+		<property name="dataSource">
+			<ref local="ds"/>
+		</property>
+	</bean>
+	
+	<bean id="vReview_AdminDao" class="com.nmom.soap.data.impl.board.review.VReview_AdminDaoOraImpl">
+		<property name="dataSource">
+			<ref local="ds"/>
+		</property>
+	</bean>
+	
+	<bean id="vReview_FrontDao" class="com.nmom.soap.data.impl.board.review.VReview_FrontDaoOraImpl">
+		<property name="dataSource">
+			<ref local="ds"/>
+		</property>
+	</bean>
+
+<!-- Svc -->
+	<bean id="productSvc" class="com.nmom.soap.svc.product.ProductSvcImpl">
+		<property name="productDao">
+			<ref local="productDao"/>
+		</property>
+	</bean>
+	
+	<bean id="vProduct_deletedSvc" class="com.nmom.soap.svc.product.VProduct_DeletedSvcImpl">
+		<property name="product_deletedDao">
+			<ref local="vProduct_DeletedDao"/>
+		</property>
+	</bean>
+	
+	<bean id="vProduct_manageSvc" class="com.nmom.soap.svc.product.VProduct_ManageSvcImpl">
+		<property name="product_manageDao">
+			<ref local="vProduct_ManageDao"/>
+		</property>
+	</bean>
+	
+	<bean id="vRank_sellsSvc" class="com.nmom.soap.svc.sales.VRank_SellsSvcImpl">
+		<property name="rank_sellsDao">
+			<ref local="vRank_SellsDao"/>
+		</property>
+	</bean>
+	
+	<bean id="review_reSvc" class="com.nmom.soap.svc.board.review.Review_ReSvcImpl">
+		<property name="review_reDao">
+			<ref local="review_reDao"/>
+		</property>
+	</bean>
+	
+	<bean id="reviewSvc" class="com.nmom.soap.svc.board.review.ReviewSvcImpl">
+		<property name="reviewDao">
+			<ref local="reviewDao"/>
+		</property>
+	</bean>
+	
+	<bean id="vReview_adminSvc" class="com.nmom.soap.svc.board.review.VReview_AdminSvcImpl">
+		<property name="review_adminDao">
+			<ref local="vReview_AdminDao"/>
+		</property>
+	</bean>
+	
+	<bean id="vReview_frontSvc" class="com.nmom.soap.svc.board.review.VReview_FrontSvcImpl">
+		<property name="review_frontDao">
+			<ref local="vReview_FrontDao"/>
+		</property>
+	</bean>
+	
+</beans>

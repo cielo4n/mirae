@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="7"
+    android:orientation="vertical"
+    android:padding="12dp"
+    tools:context="com.bazak.alarmistiming.WeatherActivity"
+    android:background="#ffffff">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:text="날씨 예보"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/temp0"
+            android:layout_centerVertical="true"
+            />
+
+
+        <TextView
+            android:id="@+id/txt_weather_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="지역"
+            android:layout_below="@id/temp0"
+            android:layout_centerHorizontal="true"
+            />
+        <ImageView
+            android:id="@+id/btn_refresh"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:clickable="true"
+            android:onClick="mOnClick"
+            android:padding="5dp"
+            android:src="@drawable/wt_refresh"
+            />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/txt_weather_1"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="#aa000000"
+                android:padding="10dp"
+                android:text="기상정보를 가져올 수 없습니다..."
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/txt_weather_2"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="#aa000000"
+                android:padding="10dp"
+                android:text="기상정보를 가져올 수 없습니다..."
+                android:textColor="#ffffff" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/txt_weather_3"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="#aa000000"
+                android:padding="10dp"
+                android:text="기상정보를 가져올 수 없습니다..."
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/txt_weather_4"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="#aa000000"
+                android:padding="10dp"
+                android:text="기상정보를 가져올 수 없습니다..."
+                android:textColor="#ffffff" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/weather_img1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/question"
+            />
+        <ImageView
+            android:id="@+id/weather_img2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/question"
+            />
+        <ImageView
+            android:id="@+id/weather_img3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/question"
+            />
+        <ImageView
+            android:id="@+id/weather_img4"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/question"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5">
+
+        <Button
+            android:id="@+id/btn_weather_complete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:onClick="mOnClick"
+            android:text="확인" />
+
+    </LinearLayout>
+
+</LinearLayout>

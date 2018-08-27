@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	
+<!-- import -->
+	
+	
+<!-- DAO -->
+	<bean id="eventDao" class="com.nmom.soap.data.impl.board.event.EventDaoOraImpl">
+		<property name="dataSource">
+			<ref local="ds"/>
+		</property>
+	</bean>
+	
+	<bean id="eventReDao" class="com.nmom.soap.data.impl.board.event.Event_reDaoOraImpl">
+		<property name="dataSource">
+			<ref local="ds"/>
+		</property>
+	</bean>
+	
+	<bean id="memberDao" class="com.nmom.soap.data.impl.member.MemberDaoOraImpl">
+		<property name="dataSource">
+			<ref local="ds"/>
+		</property>	
+	</bean>
+	
+	<bean id="boardAccessDao" class="com.nmom.soap.data.impl.member.BoardAccessDaoOraImpl">
+		<property name="dataSource">
+			<ref local="ds"/>
+		</property>
+	</bean>
+	
+	
+<!-- SVC -->
+
+	<bean id="eventSvc" class="com.nmom.soap.svc.board.event.EventSvcImpl">
+		<property name="eventDao">
+			<ref local="eventDao"/>
+		</property>
+	</bean>
+	
+	<bean id="eventReSvc" class="com.nmom.soap.svc.board.event.Event_reSvcImpl">
+		<property name="eventReDao">
+			<ref local="eventReDao"/>
+		</property>
+	</bean>
+
+	<bean id="memberSvc" class="com.nmom.soap.svc.member.MemberSvcImpl">
+		<property name="memberDao">
+			<ref local="memberDao"/>
+		</property>
+	</bean>
+	
+	<bean id="boardAccessSvc" class="com.nmom.soap.svc.member.BoardAccessSvcImpl">
+		<property name="boardAccessDao">
+			<ref local="boardAccessDao"/>
+		</property>
+	</bean>
+	
+	
+</beans>

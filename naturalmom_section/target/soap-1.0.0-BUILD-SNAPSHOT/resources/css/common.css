@@ -1,0 +1,143 @@
+@charset "utf-8";
+
+
+/* 폰트 설정
+-----------------------------------*/
+@font-face { font-family:'나눔바른고딕'; src:url('../font/NanumBarunGothic.woff') format('woff'); }
+@font-face { font-family:'환경R'; src:url('../font/환경R.woff') format('woff'); }
+
+/*초기화 부분
+---------------------------------------*/
+* { margin : 0; padding : 0; }
+li { list-style-type : none; }
+a { text-decoration : none; }
+img { border : 0px; }
+
+header { 
+	text-align : center; 
+}
+body, footer {
+	font : 16px "나눔바른고딕", "맑은 고딕", Arial;
+}
+footer {
+	background-color : #635353;
+	padding : 10px 0;
+	text-align : center;
+}
+
+#container{
+	margin : 0 auto;
+	min-height: 600px;
+}
+
+#content section img:hover{
+	opacity : 0.7;
+}
+#logo { 
+	margin-top : 10px; 
+}
+
+address { /* 회사정보 */
+	clear : both;
+	padding-top : 5px;
+	color : #a29494;
+	font-size : 13px;
+	font-style : normal;
+}
+
+#main_banner { /* 메인배너 */
+	background-image : url("../images/main_banner.jpg");
+	background-repeat : no-repeat;
+	height : 150px;
+} /*pc의 인덱스 화면에서는 url("../images/main_banner_big.jpg")  height : 337px 이다*/
+
+/*PC용 화면 화면크기 최소 1024px 이상의 조건에서 실행됨*/
+/* 사용자 메뉴
+---------------------------------------------------------*/
+#user_menu_pc {
+	width : 100%;
+	height : 36px;
+	background-color : #85858d;
+	font : 15px "환경R", "나눔바른고딕", "맑은 고딕",  Arial;
+}
+#user_menu_pc li {
+	width : 97px; 
+	float : right; 
+}
+#user_menu_pc a, #user_menu_pc a:visited{
+	display : block;
+	padding-top : 9px;
+	padding-bottom : 8px;
+	color : #fff;
+	text-align : center;
+}
+#user_menu_pc a:hover{
+	background-color : #AAAAB0;
+}
+
+/* 검색
+----------------------------------------------------------*/
+#search_pc{
+	text-align : right;
+	padding-right : 10px;
+	color : #d3d3d3;	
+	background-color : #fff;
+	font-family : "돋움", "dotum", "Arial";
+	font-size : 13px;
+	padding-bottom : 5px;
+	margin-bottom : 5px;
+}
+#search_pc input {
+	padding: 2px;
+	border : 1px solid #E9E9E9;
+	border-right : 0px;
+	font-family : "돋움", "dotum";
+}
+#search_pc img{
+	height : 22px;
+	vertical-align : bottom;
+}
+	#container{ width : 1024px; }
+	#main_banner { width : 1024px; }
+
+/* 상품메뉴
+--------------------------------------------------------------*/
+#product_menu{
+	clear : both; 
+	width : 100%;
+	font : 16px "환경R", "나눔바른고딕", "맑은 고딕",  Arial;
+}
+#product_menu li{
+	float : left;
+	text-align : center;
+	margin-bottom : 20px;
+	padding: 0;
+	width : 20%;
+}
+#product_menu a, #product_menu a:visited{
+	background-color : #635353;
+	display : block;
+	padding : 15px 0px;
+	color : #fff;
+}
+#product_menu a:hover{
+	background-color : #918686;
+}
+
+/* 회사 메뉴
+------------------------------------------------------*/
+#company_menu {
+	clear : both;
+	text-align : center;
+	font-size : 15px;
+}
+#company_menu a, #company_menu a:visited {
+	color : #cec5ce;
+	margin : 0 10px;
+}
+#company_menu a:hover{
+	text-decoration : underline;
+}
+footer {
+	margin-top : 30px;
+}

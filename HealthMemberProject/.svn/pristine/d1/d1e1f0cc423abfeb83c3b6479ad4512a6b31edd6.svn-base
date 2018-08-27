@@ -1,0 +1,145 @@
+package health.ui;
+
+import health.database.AdminDao;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+
+public class AdminJoinDialog extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
+	private final JTextField tf_admin_join_id = new JTextField();
+	private JPasswordField tf_admin_join_pw;
+	private JPasswordField tf_admin_join_rpw;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			AdminJoinDialog dialog = new AdminJoinDialog(new MainScreen());
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public AdminJoinDialog(final MainScreen owner) {
+		super(owner);
+		setResizable(false);
+		setModal(true);
+		setTitle("관리자 등록");
+		setBounds(100, 100, 300, 200);
+		getContentPane().setLayout(null);
+		contentPanel.setLayout(new FlowLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+		{
+			JLabel lb_admin_join_id = new JLabel("아 이 디");
+			lb_admin_join_id.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+			lb_admin_join_id.setHorizontalAlignment(SwingConstants.CENTER);
+			lb_admin_join_id.setBounds(24, 24, 73, 21);
+			getContentPane().add(lb_admin_join_id);
+		}
+		{
+			JLabel lb_admin_join_pw = new JLabel("비 밀 번 호");
+			lb_admin_join_pw.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+			lb_admin_join_pw.setHorizontalAlignment(SwingConstants.CENTER);
+			lb_admin_join_pw.setBounds(24, 61, 73, 21);
+			getContentPane().add(lb_admin_join_pw);
+		}
+		{
+			JLabel lb_admin_join_rpw = new JLabel("비밀번호 재입력");
+			lb_admin_join_rpw.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+			lb_admin_join_rpw.setHorizontalAlignment(SwingConstants.CENTER);
+			lb_admin_join_rpw.setBounds(12, 92, 102, 21);
+			getContentPane().add(lb_admin_join_rpw);
+		}
+		tf_admin_join_id.setBounds(126, 24, 116, 21);
+		getContentPane().add(tf_admin_join_id);
+		tf_admin_join_id.setColumns(10);
+		{
+			JButton btn_admin_join_ok = new JButton("확 인");
+			btn_admin_join_ok.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) { // 확인누르면 관리자아이디가 등록되는이벤트
+					String admin_id = tf_admin_join_id.getText();
+					String admin_pw = new String(tf_admin_join_pw.getPassword());
+					String admin_rpw = new String(tf_admin_join_rpw.getPassword());
+					
+					//비밀번호와 비밀번호재입력이 맞는지 확인
+					if(admin_pw.equals(admin_rpw) == false){
+						WarningMessage.MainScreenJoinPassward();
+						
+					} 
+					else{
+						
+						if(AdminDao.getInstance().insertAdmin(admin_id, admin_pw) == true){
+							//입력잘됨
+							WarningMessage.MainScreenJoinSuccess();
+							dispose();
+						} else {
+							//입력안됨
+							WarningMessage.MainScreenJoinFailure();
+						}
+					}
+				}
+			});
+			btn_admin_join_ok.setBounds(24, 129, 97, 23);
+			getContentPane().add(btn_admin_join_ok);
+		}
+		{
+			JButton btn_admin_join_cancel = new JButton("취 소");
+			btn_admin_join_cancel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setVisible(false); // 취소버튼 누르면다이얼로그창 닫힘
+				}
+			});
+			btn_admin_join_cancel.setBounds(153, 129, 97, 23);
+			getContentPane().add(btn_admin_join_cancel);
+		}
+		{
+			tf_admin_join_pw = new JPasswordField();
+			tf_admin_join_pw.setBounds(126, 61, 116, 21);
+			getContentPane().add(tf_admin_join_pw);
+		}
+		{
+			tf_admin_join_rpw = new JPasswordField();
+			tf_admin_join_rpw.setBounds(126, 92, 116, 21);
+			getContentPane().add(tf_admin_join_rpw);
+		}
+		setVisible(true);
+	}
+}

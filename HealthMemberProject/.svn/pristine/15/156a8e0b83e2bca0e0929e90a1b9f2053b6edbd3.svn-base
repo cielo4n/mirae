@@ -1,0 +1,140 @@
+package health.ui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLayeredPane;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class AdminMainScreen extends JFrame {
+
+	private JPanel contentPane;
+	private JTable table;
+	private JTable tb_adminscreen;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args)throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+	 UnsupportedLookAndFeelException {
+		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AdminMainScreen frame = new AdminMainScreen();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public AdminMainScreen() {
+		setResizable(false);
+		setTitle("관리자 화면");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 600);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JLayeredPane layeredPane = new JLayeredPane();
+		contentPane.add(layeredPane, BorderLayout.CENTER);
+		
+		JLabel lb_health_list = new JLabel("헬스장 목록");
+		lb_health_list.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		lb_health_list.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_list.setBounds(45, 49, 117, 38);
+		layeredPane.add(lb_health_list);
+		
+		JButton btn_adminscreen_view = new JButton("헬스장 상세보기");
+		btn_adminscreen_view.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		btn_adminscreen_view.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // 누르면 헬스장을 상세히볼수잇는버튼 
+				new AdminMainViewDialog();
+			}
+		});
+		btn_adminscreen_view.setBounds(90, 442, 140, 45);
+		layeredPane.add(btn_adminscreen_view);
+		
+		JButton btn_adminscreen_sales = new JButton("헬스장 매출보기");
+		btn_adminscreen_sales.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		btn_adminscreen_sales.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // 헬스장 매출보여주는 이벤트
+				new HealthSales();
+			}
+		});
+		btn_adminscreen_sales.setBounds(292, 442, 140, 45);
+		layeredPane.add(btn_adminscreen_sales);
+		
+		JButton btn_adminscreen_join = new JButton("헬스장 등록");
+		btn_adminscreen_join.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		btn_adminscreen_join.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // 새로운 헬스장 등록해주는 이벤트
+				new AdminMainJoin(AdminMainScreen.this);
+			}
+		});
+		btn_adminscreen_join.setBounds(503, 442, 140, 45);
+		layeredPane.add(btn_adminscreen_join);
+		
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(55, 132, 666, 249);
+		layeredPane.add(scrollPane);
+		
+		tb_adminscreen = new JTable();
+		tb_adminscreen.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		tb_adminscreen.setCellSelectionEnabled(true);
+		tb_adminscreen.setColumnSelectionAllowed(true);
+		tb_adminscreen.setFillsViewportHeight(true);
+		tb_adminscreen.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+			},
+			new String[] {
+				"헬스장 아이디", "사업자 등록번호", "헬스장 이름", "연락처", "주 소"
+			}
+		));
+		tb_adminscreen.getColumnModel().getColumn(0).setPreferredWidth(70);
+		tb_adminscreen.getColumnModel().getColumn(1).setPreferredWidth(70);
+		tb_adminscreen.getColumnModel().getColumn(2).setPreferredWidth(50);
+		tb_adminscreen.getColumnModel().getColumn(3).setPreferredWidth(70);
+		tb_adminscreen.getColumnModel().getColumn(4).setPreferredWidth(85);
+		scrollPane.setViewportView(tb_adminscreen);
+		setVisible(true);
+
+	} //생성자 끝
+}

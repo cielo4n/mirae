@@ -1,0 +1,159 @@
+package health.ui;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.Font;
+import javax.swing.JLayeredPane;
+import javax.swing.SwingConstants;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class HealthSales extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
+	private JTable tb_sales_health_year;
+	private JTable tb_sales_health_month;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			HealthSales dialog = new HealthSales();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public HealthSales() {
+		setResizable(false);
+		setModal(true);
+		setTitle("∏≈√‚∫∏±‚");
+		setBounds(100, 100, 700,600);
+		 setLocationRelativeTo(null);
+		getContentPane().setLayout(null);
+		contentPanel.setLayout(new FlowLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+		{
+			JLabel lb_sales_year = new JLabel("ø¨∞£ ∏≈√‚");
+			lb_sales_year.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
+			lb_sales_year.setBounds(105, 109, 100, 43);
+			getContentPane().add(lb_sales_year);
+		}
+		{
+			JLabel lb_sales_month = new JLabel("ø˘∞£ ∏≈√‚");
+			lb_sales_month.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
+			lb_sales_month.setBounds(454, 109, 100, 43);
+			getContentPane().add(lb_sales_month);
+		}
+		
+		JLabel lb_sales_health = new JLabel("New label");
+		lb_sales_health.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 25));
+		lb_sales_health.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_sales_health.setBounds(105, 32, 449, 43);
+		getContentPane().add(lb_sales_health);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(49, 184, 222, 214);
+		getContentPane().add(scrollPane);
+		
+		tb_sales_health_year = new JTable();
+		scrollPane.setViewportView(tb_sales_health_year);
+		tb_sales_health_year.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+			},
+			new String[] {
+				"≥‚", "∏≈ √‚"
+			}
+		));
+		tb_sales_health_year.getColumnModel().getColumn(0).setPreferredWidth(30);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(357, 184, 286, 214);
+		getContentPane().add(scrollPane_1);
+		
+		tb_sales_health_month = new JTable();
+		scrollPane_1.setViewportView(tb_sales_health_month);
+		tb_sales_health_month.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+			},
+			new String[] {
+				"≥‚", "ø˘", "∏≈ √‚"
+			}
+		));
+		
+		JButton btn_sales_OK = new JButton("»Æ ¿Œ");
+		btn_sales_OK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { //»Æ¿Œ¥©∏£∏È ¥Ÿ¿ÃæÛ∑Œ±◊ ¥›»˚
+				setVisible(false);
+			}
+		});
+		btn_sales_OK.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
+		btn_sales_OK.setBounds(269, 455, 117, 43);
+		getContentPane().add(btn_sales_OK);
+		tb_sales_health_month.getColumnModel().getColumn(0).setPreferredWidth(30);
+		tb_sales_health_month.getColumnModel().getColumn(1).setPreferredWidth(30);
+		
+		
+		setVisible(true);
+	}
+	
+}

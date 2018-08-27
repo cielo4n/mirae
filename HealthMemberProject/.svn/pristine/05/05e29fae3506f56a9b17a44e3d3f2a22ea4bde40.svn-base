@@ -1,0 +1,253 @@
+package health.ui;
+
+import health.database.AdminDao;
+import health.database.GymDao;
+import health.database.GymDto;
+import health.database.TrainerDao;
+import health.database.TrainerDto;
+import health.value.StaticValues;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class HealthTrainerJoinDialog extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
+	private JTextField tf_trainerjoin_name;
+	private JTextField tf_trainerjoin_phone;
+	private JTextField tf_trainerjoin_birth_year;
+	private JTextField tf_trainerjoin_adress;
+	private JTextField tf_trainerjoin_year; // °æ·Â
+	private JComboBox cb_trainerjoin_gender;
+	private JComboBox cb_trainerjoin_month;
+	private JComboBox cb_trainerjoin_day;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			HealthTrainerJoinDialog dialog = new HealthTrainerJoinDialog(	new HealthMainScreen());
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public HealthTrainerJoinDialog(final HealthMainScreen owner) {
+		super(owner);
+		setTitle("Æ®·¹ÀÌ³Ê µî·Ï");
+		setBounds(100, 100, 380, 500);
+		setLocationRelativeTo(null);
+		getContentPane().setLayout(null);
+		contentPanel.setLayout(new FlowLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+
+		JLabel lb_trainerjoin_name = new JLabel("ÀÌ ¸§");
+		lb_trainerjoin_name.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_trainerjoin_name.setBounds(12, 37, 57, 15);
+		getContentPane().add(lb_trainerjoin_name);
+
+		JLabel lb_trainerjoin_phone = new JLabel("¿¬¶ôÃ³");
+		lb_trainerjoin_phone.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_trainerjoin_phone.setBounds(12, 86, 57, 15);
+		getContentPane().add(lb_trainerjoin_phone);
+
+		JLabel lb_trainerjoin_address = new JLabel("ÁÖ ¼Ò");
+		lb_trainerjoin_address.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_trainerjoin_address.setBounds(12, 138, 57, 15);
+		getContentPane().add(lb_trainerjoin_address);
+
+		JLabel lb_trainerjoin_birth = new JLabel("»ý³â¿ùÀÏ");
+		lb_trainerjoin_birth.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_trainerjoin_birth.setBounds(12, 201, 57, 15);
+		getContentPane().add(lb_trainerjoin_birth);
+
+		JLabel lb_trainerjoin_career = new JLabel("¼º º°");
+		lb_trainerjoin_career.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_trainerjoin_career.setBounds(12, 256, 57, 15);
+		getContentPane().add(lb_trainerjoin_career);
+
+		JLabel lb_trainerjoin_gender = new JLabel("°æ ·Â");
+		lb_trainerjoin_gender.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_trainerjoin_gender.setBounds(12, 308, 57, 15);
+		getContentPane().add(lb_trainerjoin_gender);
+
+		tf_trainerjoin_name = new JTextField();
+		tf_trainerjoin_name.setBounds(81, 34, 116, 21);
+		getContentPane().add(tf_trainerjoin_name);
+		tf_trainerjoin_name.setColumns(10);
+
+		tf_trainerjoin_phone = new JTextField();
+		tf_trainerjoin_phone.setColumns(10);
+		tf_trainerjoin_phone.setBounds(81, 83, 116, 21);
+		getContentPane().add(tf_trainerjoin_phone);
+
+		tf_trainerjoin_birth_year = new JTextField();
+		tf_trainerjoin_birth_year.setColumns(10);
+		tf_trainerjoin_birth_year.setBounds(81, 198, 42, 21);
+		getContentPane().add(tf_trainerjoin_birth_year);
+
+		tf_trainerjoin_adress = new JTextField();
+		tf_trainerjoin_adress.setColumns(10);
+		tf_trainerjoin_adress.setBounds(81, 135, 271, 21);
+		getContentPane().add(tf_trainerjoin_adress);
+
+		tf_trainerjoin_year = new JTextField();
+		tf_trainerjoin_year.setColumns(10);
+		tf_trainerjoin_year.setBounds(81, 305, 42, 21);
+		getContentPane().add(tf_trainerjoin_year);
+
+		JLabel lb_trainerjoin_careeryear = new JLabel("³â");
+		lb_trainerjoin_careeryear.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_trainerjoin_careeryear.setBounds(126, 308, 26, 15);
+		getContentPane().add(lb_trainerjoin_careeryear);
+
+		cb_trainerjoin_gender = new JComboBox();
+		cb_trainerjoin_gender.setModel(new DefaultComboBoxModel(new String[] {
+				"\uB0A8\uC131", "\uC5EC\uC131" }));
+		cb_trainerjoin_gender.setBounds(81, 253, 57, 21);
+		getContentPane().add(cb_trainerjoin_gender);
+
+		JLabel lb_trainerjoin_year = new JLabel("³â");
+		lb_trainerjoin_year.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_trainerjoin_year.setBounds(126, 201, 26, 15);
+		getContentPane().add(lb_trainerjoin_year);
+
+		cb_trainerjoin_month = new JComboBox();
+		cb_trainerjoin_month
+				.setModel(new DefaultComboBoxModel(new String[] { "1", "2",
+						"3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+		cb_trainerjoin_month.setBounds(151, 198, 46, 21);
+		getContentPane().add(cb_trainerjoin_month);
+
+		cb_trainerjoin_day = new JComboBox();
+		cb_trainerjoin_day.setModel(new DefaultComboBoxModel(new String[] {
+				"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+				"13", "14", "15", "16", "17", "18", "19", "20", "21", "22",
+				"23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+		cb_trainerjoin_day.setBounds(240, 198, 57, 21);
+		getContentPane().add(cb_trainerjoin_day);
+
+		JLabel lb_trainerjoin_month = new JLabel("¿ù");
+		lb_trainerjoin_month.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_trainerjoin_month.setBounds(202, 201, 26, 15);
+		getContentPane().add(lb_trainerjoin_month);
+
+		JLabel lb_trainerjoin_day = new JLabel("ÀÏ");
+		lb_trainerjoin_day.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_trainerjoin_day.setBounds(304, 201, 26, 15);
+		getContentPane().add(lb_trainerjoin_day);
+
+		JButton btn_trainerjoin_ok = new JButton("È® ÀÎ");
+
+		btn_trainerjoin_ok.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent ae) { 
+				
+				boolean err = false; // ¿À·ù È®ÀÎ¿ë
+				int trainer_year = 0;
+				int trainer_career = 0;
+				
+				// È®ÀÎ¹öÆ°´©¸£¸é »õÆ®·¹ÀÌ³Ê°¡ µî·ÏµÇ´Â ÀÌº¥Æ®
+				// °ø¹éÈ®ÀÎ
+				if (tf_trainerjoin_name.getText().equals("") || tf_trainerjoin_phone.getText().equals("")
+						|| tf_trainerjoin_adress.getText().equals("") || tf_trainerjoin_birth_year.getText().equals("")
+						|| tf_trainerjoin_year.getText().equals("")) {
+					WarningMessage.blankWarning();
+				} else {
+					if (err == false) {
+						try {
+							trainer_year = Integer.parseInt(tf_trainerjoin_birth_year.getText());
+							
+						} catch (Exception e) {
+							WarningMessage.trainerYearFailure();
+							err = true;
+						}
+						try {
+							trainer_career = Integer.parseInt(tf_trainerjoin_year.getText());
+						
+						} catch (Exception e) {
+							WarningMessage.trainerCareerFailure();
+							err = true;
+						}
+					}
+
+					if (err == false) {
+						String trainer_name = tf_trainerjoin_name.getText();
+						String trainer_tel = tf_trainerjoin_phone.getText();
+						String trainer_addr = tf_trainerjoin_adress.getText();
+
+						String trainer_gender = (String) cb_trainerjoin_gender.getSelectedItem();
+						int trainer_month = Integer.parseInt((String)cb_trainerjoin_month.getSelectedItem());
+						int trainer_day = Integer.parseInt((String) cb_trainerjoin_day.getSelectedItem());
+						System.out.println(trainer_gender);
+						System.out.println(trainer_month);
+						System.out.println(trainer_day);
+						System.out.println("¿¬µµ getText: "+tf_trainerjoin_birth_year.getText());
+						System.out.println("°æ·Â getText: "+tf_trainerjoin_year.getText());
+						System.out.println("¿¬µµ val: "+trainer_year);
+						System.out.println("°æ·Â val: "+trainer_career);
+
+						TrainerDto td = new TrainerDto(trainer_name,
+								trainer_tel, trainer_addr, trainer_year,
+								trainer_month, trainer_day, trainer_gender,
+								trainer_career, StaticValues.getSvGym_id());
+						WarningMessage.trainerJoin();
+						TrainerDao.getInstance().insertTrainer(td);
+						dispose();
+					}
+				}
+			}
+		});
+
+		btn_trainerjoin_ok.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 13));
+		btn_trainerjoin_ok.setBounds(73, 401, 79, 35);
+		getContentPane().add(btn_trainerjoin_ok);
+
+		JButton btn_trainerjoin_cancel = new JButton("Ãë ¼Ò");
+		btn_trainerjoin_cancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // Ã¢´ÝÈ÷´Â ÀÌº¥Æ®
+				setVisible(false);
+			}
+		});
+		btn_trainerjoin_cancel.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 13));
+		btn_trainerjoin_cancel.setBounds(202, 401, 79, 35);
+		getContentPane().add(btn_trainerjoin_cancel);
+		setVisible(true);
+	}
+}

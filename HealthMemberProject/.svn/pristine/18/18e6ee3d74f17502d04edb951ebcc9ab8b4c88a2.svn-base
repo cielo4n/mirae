@@ -1,0 +1,248 @@
+package health.ui;
+ 
+import health.database.AdminDao;
+import health.database.GymDao;
+import health.value.StaticValues;
+
+import java.awt.CheckboxGroup;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+ 
+public class MainScreen extends JFrame {
+ 
+    BufferedImage img = null;
+    JTextField loginTextField;
+    JPasswordField passwordField;
+    JButton bt, bt2, bt3, bt4;
+    JRadioButton CB;
+    JRadioButton CB1;
+    
+    int frm = 400, frm1 = 300;
+    int screen_width, screen_height ;
+ 
+    
+    // 메인
+    public static void main(String[] args)throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+    UnsupportedLookAndFeelException {
+    	UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+        new MainScreen();
+    }
+ 
+    // 생성자
+    public MainScreen() {
+    	setLocation(500,200);
+    	setResizable(false);
+        setTitle("The Future Fitness Club");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+ 
+        // 레이아웃 설정
+        getContentPane().setLayout(null);
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setBounds(0, 0, 794, 572);
+        layeredPane.setLayout(null);
+ 
+        // 패널1
+        // 이미지 받아오기
+        try {
+            img = ImageIO.read(new File("img/main.jpg"));
+        } catch (IOException e) {
+            System.out.println("이미지 불러오기 실패");
+            System.exit(0);
+        }
+         
+        MyPanel panel = new MyPanel();
+        panel.setBounds(0, 0, 800, 600);
+         
+ 
+        // 로그인 필드
+        loginTextField = new JTextField(15);
+        loginTextField.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+        loginTextField.setBounds(264, 242, 270, 24);
+        layeredPane.add(loginTextField);
+        loginTextField.setOpaque(false);
+        loginTextField.setForeground(Color.BLACK);
+        loginTextField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        // 패스워드
+        passwordField = new JPasswordField(15);
+        passwordField.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+        passwordField.setBounds(264, 313, 270, 24);
+        passwordField.setOpaque(false);
+        passwordField.setForeground(Color.BLACK);
+        passwordField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        layeredPane.add(passwordField);
+ 
+        // 로그인버튼 추가
+        bt = new JButton(new ImageIcon("img/login_n.png"));
+
+        bt.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mousePressed(MouseEvent e) {
+        		bt.setIcon((new ImageIcon("img/login_p.png")));
+        	}
+        	@Override
+        	public void mouseReleased(MouseEvent e) {
+        		bt.setIcon((new ImageIcon("img/login_n.png")));
+        	}
+        });
+        bt.setBounds(264, 431, 130, 40);
+        
+        bt2 = new JButton(new ImageIcon("img/join_n.png"));
+        bt2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+              new AdminJoinDialog(MainScreen.this); // 관리자등록 버튼 누르면 다이얼로그 켜지는 이벤트
+        	}
+        });
+        bt2.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mousePressed(MouseEvent e) { 
+        		bt2.setIcon((new ImageIcon("img/join_p.png")));
+        	}
+        	@Override
+        	public void mouseReleased(MouseEvent e) {
+        		bt2.setIcon((new ImageIcon("img/join_n.png")));
+        	}
+        });
+        bt2.setBounds(404, 431, 130, 40);
+        
+        bt3 = new JButton(new ImageIcon("img/check_n.png"));
+        bt3.setBounds(289,384, 12, 12);
+        
+        bt4 = new JButton(new ImageIcon("img/check_n.png"));
+        bt4.setBounds(419,384, 12, 12);
+ 
+        // 버튼 투명처리
+        bt.setBorderPainted(false);
+        bt.setFocusPainted(false);
+        bt.setContentAreaFilled(false);
+        
+        bt2.setBorderPainted(false);
+        bt2.setFocusPainted(false);
+        bt2.setContentAreaFilled(false);
+        
+        bt3.setBorderPainted(false);
+        bt3.setFocusPainted(false);
+        bt3.setContentAreaFilled(false);
+        
+        
+        bt4.setBorderPainted(false);
+        bt4.setFocusPainted(false);
+        bt4.setContentAreaFilled(false);
+ 
+        layeredPane.add(bt);
+        layeredPane.add(bt2);
+        layeredPane.add(bt3);
+        layeredPane.add(bt4);
+ 
+        // 마지막 추가들
+        layeredPane.add(panel);
+        getContentPane().add(layeredPane);
+        
+        CheckboxGroup gb = new CheckboxGroup();
+        ButtonGroup bg = new ButtonGroup();
+
+
+        
+        CB = new JRadioButton(new ImageIcon("img/check_n.png"));
+        
+        CB.addItemListener(new ItemListener() { // 체크박스에 체크가되면 체크버튼에 체크가되는 이벤트
+        	public void itemStateChanged(ItemEvent e) {
+        		if(e.getStateChange() == ItemEvent.SELECTED)
+        			bt3.setIcon((new ImageIcon("img/check_p.png")));
+        		else
+        			bt3.setIcon((new ImageIcon("img/check_n.png")));
+        	}
+        });
+        CB.setBounds(289, 384, 90, 30);
+        layeredPane.add(CB);
+        CB.setBorderPainted(false);
+        CB.setFocusPainted(false);
+        CB.setContentAreaFilled(false);
+      
+        
+        CB1 = new JRadioButton(new ImageIcon("img/check_n.png"));
+        CB1.addItemListener(new ItemListener() {
+        	public void itemStateChanged(ItemEvent e) { // 체크박스에 체크가되면 체크버튼에 체크가되는 이벤트
+        		if(e.getStateChange() == ItemEvent.SELECTED)
+        			bt4.setIcon((new ImageIcon("img/check_p.png")));
+        		else
+        			bt4.setIcon((new ImageIcon("img/check_n.png")));
+        		
+        	}
+        });
+        CB1.setBounds(419, 384, 90, 30);
+        layeredPane.add(CB1);
+        CB1.setBorderPainted(false);
+        CB1.setFocusPainted(false);
+        CB1.setContentAreaFilled(false);
+     
+        bg.add(CB);
+        bg.add(CB1);
+                
+        bt.addActionListener(new ActionListener() {
+        	
+        	public void actionPerformed(ActionEvent e) { 
+        		// 로그인 누르면 어디민에체크됏는지 휘트니스에체크됏는지 확인후 로그인해주는이벤트
+
+        		String id = loginTextField.getText();
+    			String pw = new String(passwordField.getPassword());
+        		
+        		//체크박스에 무엇이 선택되었나 비교함
+        		if(CB.isSelected() == true) //관리자 선택되고 로그인
+        		{
+        			if(AdminDao.getInstance().compareAdmin(id, pw)==false){
+        				WarningMessage.MainScreenLoginWarning();
+        			} else {
+        				StaticValues.setSvAdmin_id(id);
+        				setVisible(false);
+        				new AdminMainScreen();
+        			}
+        			
+        		} else if(CB1.isSelected() == true){ //헬스장 선택되고 로그인
+        			if(GymDao.getInstance().compareGym(id, pw) == false){
+        				WarningMessage.MainScreenLoginWarning();
+        			} else {
+        				StaticValues.setSvAdmin_id(GymDao.getInstance().gym_idToAdmin_id(id));
+        				StaticValues.setSvGym_id(id);
+        				System.out.println(StaticValues.getSvAdmin_id());
+        				setVisible(false);
+        				new HealthMainScreen();
+        			}
+        		}
+        	}
+        });
+        
+        setVisible(true);
+    } //end 생성자
+    
+    class MyPanel extends JPanel {
+        public void paint(Graphics g) {
+            g.drawImage(img, 0, 0, null);
+        }
+    }
+}

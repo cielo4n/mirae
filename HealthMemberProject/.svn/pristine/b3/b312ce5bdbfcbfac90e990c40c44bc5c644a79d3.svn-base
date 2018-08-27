@@ -1,0 +1,536 @@
+package health.ui;
+
+import health.database.GymDao;
+import health.database.MemberDao;
+import health.database.RegDao;
+import health.database.TrainerDao;
+import health.value.StaticValues;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class HealthMainScreen extends JFrame {
+	private JTextField tf_health_name;
+	private JTextField tf_health_number;
+	private JTextField tf_health_phone;
+	private JTextField tf_health_address;
+	
+	private JTextField tf_health_member_name; //헬스장메인에서 조회시 이름
+	private JTextField tf_health_trainer_name; //트레이너에서 조회시 이름
+	private JTextField tf_healthmember_name; //헬스등록확인에서 조회시 이름
+	
+	private JTable tb_health_member; //회원관리에서 테이블
+	private JTable tb_health_trainer; //트레이너관리에서 테이블
+	private JTable tb_healthmember_search; //헬스등록확인에서 테이블
+	
+
+	public HealthMainScreen() {
+/////////////////////////////////////////////////////////////////////////////////////////
+//헬스장 (메인)화면 시작
+		
+		setResizable(false);
+		setTitle("헬스장 화면");
+		getContentPane().setLayout(null);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+		tabbedPane.setBounds(0, 0, 784, 562);
+		getContentPane().add(tabbedPane);
+		
+		JPanel pn_health_main = new JPanel();
+		pn_health_main.setLayout(null);
+		tabbedPane.addTab("\uD5EC\uC2A4\uC7A5 \uBA54\uC778", null, pn_health_main, null);
+
+		JLabel lb_health_name = new JLabel("헬스장 이름");
+		lb_health_name.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_name.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_health_name.setBounds(322, 28, 134, 38);
+		pn_health_main.add(lb_health_name);
+
+		JLabel lb_health_number = new JLabel("사업자 등록번호");
+		lb_health_number.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_number.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_health_number.setBounds(322, 127, 134, 38);
+		pn_health_main.add(lb_health_number);
+
+		JLabel lb_health_phone = new JLabel("연락처");
+		lb_health_phone.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_phone.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_health_phone.setBounds(322, 226, 134, 38);
+		pn_health_main.add(lb_health_phone);
+
+		JLabel lb_health_address = new JLabel("주 소");
+		lb_health_address.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_address.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_health_address.setBounds(322, 325, 134, 38);
+		pn_health_main.add(lb_health_address);
+
+		tf_health_name = new JTextField();
+		tf_health_name.setEnabled(false);
+		tf_health_name.setBounds(293, 76, 195, 41);
+		tf_health_name.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		tf_health_name.setHorizontalAlignment(SwingConstants.CENTER);
+		pn_health_main.add(tf_health_name);
+		tf_health_name.setColumns(10);
+
+		tf_health_number = new JTextField();
+		tf_health_number.setEnabled(false);
+		tf_health_number.setColumns(10);
+		tf_health_number.setBounds(293, 175, 195, 41);
+		tf_health_number.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		tf_health_number.setHorizontalAlignment(SwingConstants.CENTER);
+		pn_health_main.add(tf_health_number);
+
+		tf_health_phone = new JTextField();
+		tf_health_phone.setEnabled(false);
+		tf_health_phone.setColumns(10);
+		tf_health_phone.setBounds(293, 274, 195, 41);
+		tf_health_phone.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		tf_health_phone.setHorizontalAlignment(SwingConstants.CENTER);
+		pn_health_main.add(tf_health_phone);
+
+		tf_health_address = new JTextField();
+		tf_health_address.setEnabled(false);
+		tf_health_address.setColumns(10);
+		tf_health_address.setBounds(241, 373, 296, 35);
+		tf_health_address.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		tf_health_address.setHorizontalAlignment(SwingConstants.CENTER);
+		pn_health_main.add(tf_health_address);
+		
+		JButton btn_health_logout = new JButton("로그아웃");
+		btn_health_logout.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		btn_health_logout.setBounds(650, 20, 110, 30);
+		pn_health_main.add(btn_health_logout);
+		
+		//로그아웃 버튼 누르면 처음 나오는 메인화면으로 돌아간다
+		btn_health_logout.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
+				setVisible(false);
+				new MainScreen();
+			}
+		});
+
+		JButton btn_health_update = new JButton("헬스장 수정");
+		btn_health_update.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		btn_health_update.setBounds(224, 439, 120, 41);
+		pn_health_main.add(btn_health_update);
+		
+		//헬스장 수정 누를 시 실행되는 부분
+		btn_health_update.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//헬스장 수정 다이얼로그 창 뜸
+				new HealthUpdate(HealthMainScreen.this);
+				
+				//헬스장 메인에 있는 텍스트 필드의 내용도 바뀜
+				tf_health_name.setText(StaticValues.getSvGymDto().getGym_name());
+				tf_health_number.setText(StaticValues.getSvGymDto().getBusiness_no());
+				tf_health_phone.setText(StaticValues.getSvGymDto().getGym_tel());
+				tf_health_address.setText(StaticValues.getSvGymDto().getGym_addr());
+			}
+		});
+
+		JButton btn_health_salesview = new JButton("매출보기");
+		btn_health_salesview.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		
+		//매출보기 누를 시 실행되는 부분
+		btn_health_salesview.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//매출보기 다이얼로그 창 뜸
+				new HealthSales();
+			}
+		});
+		
+		btn_health_salesview.setBounds(453, 439, 120, 41);
+		pn_health_main.add(btn_health_salesview);
+		
+		//헬스장아이디에 해당하는 정보를 데이터베이스에서 불러옴
+		StaticValues.setSvGymDto(GymDao.getInstance().selectGym(StaticValues.getSvGym_id()));
+		//불러온 정보를 헬스장 메인에 있는 텍스트필드에 넣음
+		tf_health_name.setText(StaticValues.getSvGymDto().getGym_name());
+		tf_health_number.setText(StaticValues.getSvGymDto().getBusiness_no());
+		tf_health_phone.setText(StaticValues.getSvGymDto().getGym_tel());
+		tf_health_address.setText(StaticValues.getSvGymDto().getGym_addr());
+		
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//회원관리 화면 시작		
+		
+		JPanel pn_health_member = new JPanel();
+		pn_health_member.setLayout(null);
+		tabbedPane.addTab("\uD68C\uC6D0\uAD00\uB9AC", null, pn_health_member, null);
+
+		JButton btn_health_member_search = new JButton("조 회");
+		
+		//이름 텍스트필드 옆의 조회 버튼 누를 시 일어나는 이벤트 : 이름에 해당하는 회원의 정보가 조회됨
+		btn_health_member_search.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) { 
+				 //이름 텍스트필드에 있는 내용을 읽어옴
+				 String sname = tf_health_member_name.getText(); 
+
+				 //이름 텍스트필드에 내용이 있는 경우
+				 if(sname.equals("") == false){
+					 //지금 있는 헬스장에서 이름에 해당하는 사람이 있는지 검색한 후 테이블로 가져옴
+					 tb_health_member.setModel(MemberDao.getInstance().selectMemberSearch(StaticValues.getSvGym_id(), sname));
+				 
+				 } else { //이름 텍스트필드에 아무것도 없는 경우
+					 //지금 있는 헬스장에 속해있는 모든 회원을 불러와서 테이블로 가져옴
+					tb_health_member.setModel(MemberDao.getInstance().selectMemberAll(StaticValues.getSvGym_id()));
+				 }
+				 
+				 //이름 텍스트필드를 공백으로 바꿈
+				 tf_health_member_name.setText("");
+			 }
+		 });
+		
+		/*
+		 * 에러 발생! (현재 수정불가능한 버그)
+		 * 
+		 * 처음 메인화면에서 로그인할 때 이 부분과 겹치는 이벤트가 있는 듯 보인다
+		 * 다른 부분에서는 밑의 코드와 똑같은 부분이 잘 되기 때문에 왜 그런지 모르겠다 
+		 * 
+		 //텍스트필드에서 엔터 눌렀을 때 조회를 눌렀을 때와 똑같은 거 일어남
+		 tf_health_member_name.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent ae) { 
+				 // 이름 조회 누르면 회원의 정보가 조회됨
+				 String sname = tf_health_member_name.getText();
+				 if(sname.equals("") == false){
+					 tb_health_member.setModel(MemberDao.getInstance().selectMemberSearch(StaticValues.getSvGym_id(), sname));
+				 } else {
+					tb_health_member.setModel(MemberDao.getInstance().selectMemberAll(StaticValues.getSvGym_id()));
+				 }
+				 tf_health_member_name.setText("");
+			 }
+		 });
+		 */
+		 
+		btn_health_member_search.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_member_search.setBounds(620, 64, 97, 23);
+		pn_health_member.add(btn_health_member_search);
+
+		JLabel lb_health_member_name = new JLabel("이 름");
+		lb_health_member_name.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_member_name.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_health_member_name.setBounds(402, 68, 57, 19);
+		pn_health_member.add(lb_health_member_name);
+
+		tf_health_member_name = new JTextField();
+		tf_health_member_name.setBounds(465, 59, 138, 38);
+		pn_health_member.add(tf_health_member_name);
+		tf_health_member_name.setColumns(10);
+
+		JButton btn_health_memberview = new JButton("회원 상세보기");
+	
+		//회원 상세보기 버튼 누를 시 일어나는 이벤트
+		btn_health_memberview.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//테이블에서 행을 선택해서 아이디를 뽑아내는 부분
+				int row = tb_health_member.getSelectedRow(); //선택된 행을 반환
+				if(row == -1)  return; //아무것도 선택 안되었으면 리턴
+				
+				int smem_no = (int)tb_health_member.getValueAt(row, 0); 
+				//(선택된 행, 0번째열) 값을 반환 : 회원번호 반환
+				
+				//회원번호를 가지고 회원정보를 검색해서 Static변수에 저장
+				StaticValues.setSvMemDto(MemberDao.getInstance().selectMember(smem_no)); //저장
+				
+				//회원 상세보기 다이얼로그 창 띄움
+				new HealthMemberViewDialog(); 
+				
+				//회원 상세보기 다이얼로그에서 헬스 기간 등록을 할 수 있기 때문에 헬스등록확인 테이블 갱신
+				tb_healthmember_search.setModel(RegDao.getInstance().selectRegAll(StaticValues.getSvGym_id())); 
+			}
+		});
+		btn_health_memberview.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_memberview.setBounds(98, 418, 145, 38);
+		pn_health_member.add(btn_health_memberview);
+
+		JButton btn_health_member_update = new JButton("회원수정");
+		
+		//회원수정 버튼 누를시 일어나는 이벤트
+		btn_health_member_update.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { 
+				
+				//테이블에서 행을 선택해서 아이디를 뽑아내는 부분
+				int row = tb_health_member.getSelectedRow(); //선택된 행을 반환
+				if(row == -1)  return; //아무것도 선택 안되었으면 리턴
+				
+				int smem_no = (int)tb_health_member.getValueAt(row, 0); 
+				//(선택된 행, 0번째열) 값을 반환 : 회원번호 반환
+				
+				//회원번호를 가지고 회원정보를 검색해서 Static변수에 저장
+				StaticValues.setSvMemDto(MemberDao.getInstance().selectMember(smem_no));
+				
+				//회원 수정 다이얼로그 창 띄움
+				new HealthMemberUpdateDialog(HealthMainScreen.this);
+				
+				//회원 관리 테이블 갱신
+				tb_health_member.setModel(MemberDao.getInstance().selectMemberAll(StaticValues.getSvGym_id()));
+				//회원 수정 다이얼로그에서 회원 삭제를 할 수 있기 때문에 헬스등록확인 테이블 갱신
+				tb_healthmember_search.setModel(RegDao.getInstance().selectRegAll(StaticValues.getSvGym_id()));
+			}
+		});
+		
+		btn_health_member_update.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_member_update.setBounds(321, 418, 145, 38);
+		pn_health_member.add(btn_health_member_update);
+
+		JButton btn_health_memberjoin = new JButton("새 회원 등록");
+		
+		//새 회원 등록 버튼 누를 시 발생하는 이벤트
+		btn_health_memberjoin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { 
+				
+				//새 회원 등록 다이얼로그 창 띄움
+				new HealthMemberJoinDialog(HealthMainScreen.this);
+				
+				//회원 관리 테이블 갱신
+				tb_health_member.setModel(MemberDao.getInstance().selectMemberAll(StaticValues.getSvGym_id()));
+				//새 회원 등록 다이얼로그에서 헬스기간등록을 할 수 있기 때문에 헬스등록확인 테이블 갱신
+				tb_healthmember_search.setModel(RegDao.getInstance().selectRegAll(StaticValues.getSvGym_id()));
+			}
+		});
+		
+		btn_health_memberjoin.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_memberjoin.setBounds(542, 418, 145, 38);
+		pn_health_member.add(btn_health_memberjoin);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(61, 136, 672, 211);
+		pn_health_member.add(scrollPane);
+
+		tb_health_member = new JTable(); //회원관리 테이블
+		scrollPane.setViewportView(tb_health_member);
+		tb_health_member.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //한 행만 선택 가능
+		
+		//헬스장에 해당하는 회원을 불러와서 테이블에 저장함
+		tb_health_member.setModel(MemberDao.getInstance().selectMemberAll(StaticValues.getSvGym_id()));
+		
+		JLabel lb_member_main = new JLabel("회원 관리");
+		lb_member_main.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_member_main.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		lb_member_main.setBounds(61, 34, 97, 28);
+		pn_health_member.add(lb_member_main);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//트레이너 관리화면 시작
+		
+		JPanel pn_health_trainer = new JPanel();
+		pn_health_trainer.setLayout(null);
+		tabbedPane.addTab("\uD2B8\uB808\uC774\uB108 \uAD00\uB9AC", null, pn_health_trainer, null);
+
+		JLabel lb_health_trainer_name = new JLabel("이 름");
+		lb_health_trainer_name.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_trainer_name.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_health_trainer_name.setBounds(402, 68, 57, 19);
+		pn_health_trainer.add(lb_health_trainer_name);
+
+		tf_health_trainer_name = new JTextField();
+		tf_health_trainer_name.setColumns(10);
+		tf_health_trainer_name.setBounds(465, 59, 138, 38);
+		pn_health_trainer.add(tf_health_trainer_name);
+
+		JButton btn_health_trainer_name = new JButton("조 회");
+		btn_health_trainer_name.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_trainer_name.setBounds(620, 64, 97, 23);
+		pn_health_trainer.add(btn_health_trainer_name);
+		
+		//이름 텍스트필드 옆의 조회 버튼을 누를 시 발생되는 이벤트 : 이름에 해당하는 트레이너 정보가 조회됨
+		btn_health_trainer_name.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) { 
+				 //이름 텍스트필드의 내용을 읽어옴
+				 String trainer_name = tf_health_trainer_name.getText();
+				 
+				 //이름 텍스트필드에 내용이 있는 경우 
+				 if(trainer_name.equals("") == false){
+					//지금 있는 헬스장에서 트레이너 이름에 해당하는 사람이 있는지 검색한 후 테이블로 가져옴
+					tb_health_trainer.setModel(TrainerDao.getInstance().selectTrainerSearch(StaticValues.getSvGym_id(), trainer_name));
+				
+				 } else { //이름 텍스트필드에 아무것도 없는 경우
+					//지금 있는 헬스장에 속해있는 모든 트레이너를 불러와서 테이블로 가져옴
+					tb_health_trainer.setModel(TrainerDao.getInstance().selectTrainerAll(StaticValues.getSvGym_id()));
+				 }
+				 //이름 텍스트필드를 공백으로 바꿈
+				 tf_health_trainer_name.setText("");
+			 }
+		 });
+		//만약 트레이너 이름 텍스트필드에서 엔터를 친다면 위에있는 메소드와 똑같은 내용이 실행됨
+		tf_health_trainer_name.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) { 
+				 String trainer_name = tf_health_trainer_name.getText();
+				 if(trainer_name.equals("") == false){
+					 tb_health_trainer.setModel(TrainerDao.getInstance().selectTrainerSearch(StaticValues.getSvGym_id(), trainer_name));
+				 } else {
+						tb_health_trainer.setModel(TrainerDao.getInstance().selectTrainerAll(StaticValues.getSvGym_id()));
+				 }
+				 tf_health_trainer_name.setText("");
+			 }
+		 });
+		
+		JButton btn_health_trainerview = new JButton("트레이너 상세보기");
+
+		//트레이너 상세보기 버튼 누를시 발생되는 이벤트
+		btn_health_trainerview.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int row = tb_health_trainer.getSelectedRow(); //선택된 행을 반환
+				if(row == -1)  return; //아무것도 선택 안되었으면 리턴
+				int trainer_no = (int)tb_health_trainer.getValueAt(row, 0);
+				//(선택된 행, 0번째열) 값을 반환 :트레이너 번호 반환
+				
+				//트레이너 번호를 가지고 트레이너 정보를 검색해서 Static변수에 저장
+				StaticValues.setSvTrainerDto(TrainerDao.getInstance().selectTrainer(trainer_no)); 
+				
+				//트레이너 상세보기 다이얼로그 띄움
+				new HealthTrainerViewDialog();
+			}
+		});
+
+		btn_health_trainerview.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_trainerview.setBounds(98, 418, 163, 38);
+		pn_health_trainer.add(btn_health_trainerview);
+
+		JButton btn_health_trainerupdate = new JButton("트레이너 수정");
+		
+		//트레이너 수정 버튼 누를시 발생되는 이벤트
+		btn_health_trainerupdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { 
+				
+				//테이블에서 행을 선택해서 아이디를 뽑아내는 부분
+				int row = tb_health_trainer.getSelectedRow(); //선택된 행을 반환
+				if(row == -1)  return; //아무것도 선택 안되었으면 리턴
+				int trainer_no = (int)tb_health_trainer.getValueAt(row, 0); 
+				//(선택된 행, 0번째열) 값을 반환 :트레이너 번호 반환
+				
+				//트레이너 번호를 가지고 트레이너 정보를 검색해서 Static변수에 저장
+				StaticValues.setSvTrainerDto(TrainerDao.getInstance().selectTrainer(trainer_no));
+				
+				//트레이너 수정 다이얼로그 띄움
+				new HealthTrainerUpdateDialog(HealthMainScreen.this);
+				
+				//트레이너 관리 테이블 갱신
+				tb_health_trainer.setModel(TrainerDao.getInstance().selectTrainerAll(StaticValues.getSvGym_id()));
+				//헬스등록 확인 테이블 갱신
+				tb_healthmember_search.setModel(RegDao.getInstance().selectRegAll(StaticValues.getSvGym_id()));
+			}
+		});
+		btn_health_trainerupdate.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_trainerupdate.setBounds(321, 418, 145, 38);
+		pn_health_trainer.add(btn_health_trainerupdate);
+
+		JButton btn_health_trainerjoin = new JButton("트레이너 등록");
+		
+		//트레이너 등록 버튼 누를 시 발생되는 이벤트
+		btn_health_trainerjoin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { 
+				//트레이너 등록 다이얼로그 띄움
+				new HealthTrainerJoinDialog(HealthMainScreen.this);
+				
+				/*
+				 * (현재 수정 불가능한 버그) : 트레이너 등록하고 나서 테이블 갱신이 안됨
+				 * 밑의 코드는 위의 갱신 코드와 똑같은데 왜 여기서만 트레이너 테이블 갱신이 안되는 지는 모르겠음
+				 */
+				//트레이너 관리 테이블 갱신하는 코드 이지만 갱신이 안됨
+				tb_health_trainer.setModel(TrainerDao.getInstance().selectTrainerAll(StaticValues.getSvGym_id()));
+			}
+		});
+		btn_health_trainerjoin.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_trainerjoin.setBounds(542, 418, 145, 38);
+		pn_health_trainer.add(btn_health_trainerjoin);
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(62, 136, 674, 211);
+		pn_health_trainer.add(scrollPane_1);
+
+		tb_health_trainer = new JTable(); //트레이너 테이블
+		scrollPane_1.setViewportView(tb_health_trainer);
+		
+		tb_health_trainer.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //한 행만 선택 가능
+
+		//헬스장에 해당하는 트레이너를 불러와서 테이블에 저장함
+		tb_health_trainer.setModel(TrainerDao.getInstance().selectTrainerAll(StaticValues.getSvGym_id()));
+		
+		JLabel lb_trainer_main = new JLabel("트레이너 관리");
+		lb_trainer_main.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_trainer_main.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		lb_trainer_main.setBounds(61, 34, 145, 28);
+		pn_health_trainer.add(lb_trainer_main);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//헬스 등록 확인 시작		
+
+		JPanel pn_health_join = new JPanel();
+		pn_health_join.setLayout(null);
+		tabbedPane.addTab("\uD5EC\uC2A4\uC7A5\uB4F1\uB85D \uD655\uC778", null, pn_health_join, null);
+
+		JLabel lb_healthmember_name = new JLabel("회원 이름");
+		lb_healthmember_name.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_healthmember_name.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_healthmember_name.setBounds(390, 68, 70, 19);
+		pn_health_join.add(lb_healthmember_name);
+
+		tf_healthmember_name = new JTextField();
+		tf_healthmember_name.setColumns(10);
+		tf_healthmember_name.setBounds(470, 61, 138, 38);
+		pn_health_join.add(tf_healthmember_name);
+
+		JButton btn_healthmember_ok = new JButton("조 회");
+		
+		//회원이름 텍스트필드 옆의 조회버튼을 누르면 발생하는 이벤트 : 이름에 해당하는 회원의 헬스등록정보를보여줌
+		 btn_healthmember_ok.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) { 
+				 String mem_name = tf_healthmember_name.getText(); //회원이름을 읽어옴
+
+				 //회원이름 텍스트필드에 내용이 있는 경우
+				 if(mem_name.equals("") == false){
+					//지금 있는 헬스장에서 이름에 해당하는 사람의 등록정보가 있는지 검색한 후 테이블로 가져옴
+					 tb_healthmember_search.setModel(RegDao.getInstance().selectRegSearch(StaticValues.getSvGym_id(), mem_name));
+				 
+				 } else { //회원이름 텍스트필드에 아무것도 없는 경우
+					 //지금 있는 헬스장에 속해있는 모든 헬스등록정보를 불러와서 테이블로 가져옴
+					tb_healthmember_search.setModel(RegDao.getInstance().selectRegAll(StaticValues.getSvGym_id()));
+				 }
+				 //회원이름 텍스트필드를 공백으로 바꿈
+				 tf_healthmember_name.setText("");
+			 }
+		 });
+		 //회원이름 텍스트필드에서 엔터를 누르면 위와 똑같은 내용이 실행됨
+		 tf_healthmember_name.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) { 
+				 String mem_name = tf_healthmember_name.getText();
+				 if(mem_name.equals("") == false){
+					 tb_healthmember_search.setModel(RegDao.getInstance().selectRegSearch(StaticValues.getSvGym_id(), mem_name));
+				 } else {
+					tb_healthmember_search.setModel(RegDao.getInstance().selectRegAll(StaticValues.getSvGym_id()));
+				 }
+				 tf_healthmember_name.setText("");
+			 }
+		 });
+		 
+		btn_healthmember_ok.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_healthmember_ok.setBounds(620, 66, 97, 23);
+		pn_health_join.add(btn_healthmember_ok);
+
+		JLabel lb_health_main = new JLabel("헬스등록 확인");
+		lb_health_main.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_health_main.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		lb_health_main.setBounds(61, 34, 165, 28);
+		pn_health_join.add(lb_health_main);
+
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(62, 136, 674, 337);
+		pn_health_join.add(scrollPane_2);
+
+		tb_healthmember_search = new JTable(); //헬스기간등록 테이블
+		scrollPane_2.setViewportView(tb_healthmember_search);
+		tb_healthmember_search.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //한 행만 선택 가능
+		
+		//헬스장에 해당하는 헬스등록 확인 정보를 불러와서 테이블에 저장함
+		tb_healthmember_search.setModel(RegDao.getInstance().selectRegAll(StaticValues.getSvGym_id()));
+
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 600);
+		setLocationRelativeTo(null); //창이 가운데로 오게 함
+		setVisible(true);
+	}
+}

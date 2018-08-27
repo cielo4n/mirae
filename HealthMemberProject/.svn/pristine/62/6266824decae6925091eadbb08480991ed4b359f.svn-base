@@ -1,0 +1,260 @@
+package health.ui;
+
+import health.value.StaticValues;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+public class HealthMemberViewDialog extends JDialog {
+	private JTextField tf_health_memberview_name; //È¸¿ø¹øÈ£
+	private JTextField tf_health_memberview_phone;
+	private JTextField tf_health_memberview_address;
+	private JTextField tf_health_memberview_year;
+	private JTextField tf_health_memberview_weight;
+	private JTextField tf_health_memberview_height;
+	private JTextField tf_member_number;
+	private JTextField tf_health_memberview_trainer;
+	private JTextField tf_health_memberview_month;
+	private JTextField tf_health_memberview_day;
+	private JTextField tf_health_memberview_gender;
+	private JTextField tf_health_memberview_pc; //Ã¼Çü
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HealthMemberViewDialog dialog = new HealthMemberViewDialog(); // ¿©±â
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public HealthMemberViewDialog() {
+		setResizable(false);
+		setModal(true); // ¿©±â
+
+		setTitle("È¸¿ø »ó¼¼º¸±â");
+
+		setBounds(100, 100, 460, 520);
+		setLocationRelativeTo(null);
+
+		JLayeredPane layeredPane = new JLayeredPane();
+		getContentPane().add(layeredPane, BorderLayout.CENTER);
+
+		JLabel lb_health_memberview_name = new JLabel("ÀÌ¸§");
+		lb_health_memberview_name.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_health_memberview_name.setBounds(12, 58, 48, 18);
+		layeredPane.add(lb_health_memberview_name);
+
+		JLabel lb_health_memberview_phone = new JLabel("¿¬¶ôÃ³");
+		lb_health_memberview_phone.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_health_memberview_phone.setBounds(12, 93, 48, 18);
+		layeredPane.add(lb_health_memberview_phone);
+
+		JLabel lb_health_memberview_address = new JLabel("ÁÖ¼Ò");
+		lb_health_memberview_address.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_health_memberview_address.setBounds(12, 136, 41, 15);
+		layeredPane.add(lb_health_memberview_address);
+
+		JLabel lb_health_memberview_birth = new JLabel("»ý³â¿ùÀÏ");
+		lb_health_memberview_birth.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_health_memberview_birth.setBounds(12, 172, 68, 24);
+		layeredPane.add(lb_health_memberview_birth);
+
+		JLabel lb_health_memberview_pc = new JLabel("Ã¼Çü");
+		lb_health_memberview_pc.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_health_memberview_pc.setBounds(12, 336, 48, 18);
+		layeredPane.add(lb_health_memberview_pc);
+
+		JLabel lb_health_memberview_height = new JLabel("Å°");
+		lb_health_memberview_height.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_health_memberview_height.setBounds(12, 258, 57, 15);
+		layeredPane.add(lb_health_memberview_height);
+
+		JLabel lb_health_memberview_weight = new JLabel("¸ö¹«°Ô");
+		lb_health_memberview_weight.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_health_memberview_weight.setBounds(12, 299, 57, 15);
+		layeredPane.add(lb_health_memberview_weight);
+
+		JLabel lb_health_memberview_gender = new JLabel("¼ºº°");
+		lb_health_memberview_gender.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_health_memberview_gender.setBounds(12, 218, 48, 18);
+		layeredPane.add(lb_health_memberview_gender);
+
+		tf_health_memberview_name = new JTextField();
+		tf_health_memberview_name.setEnabled(false);
+		tf_health_memberview_name.setColumns(10);
+		tf_health_memberview_name.setBounds(107, 58, 116, 21);
+		layeredPane.add(tf_health_memberview_name);
+
+		tf_health_memberview_phone = new JTextField();
+		tf_health_memberview_phone.setEnabled(false);
+		tf_health_memberview_phone.setColumns(10);
+		tf_health_memberview_phone.setBounds(107, 92, 151, 21);
+		layeredPane.add(tf_health_memberview_phone);
+
+		tf_health_memberview_address = new JTextField();
+		tf_health_memberview_address.setEnabled(false);
+		tf_health_memberview_address.setColumns(10);
+		tf_health_memberview_address.setBounds(107, 131, 306, 25);
+		layeredPane.add(tf_health_memberview_address);
+
+		tf_health_memberview_year = new JTextField();
+		tf_health_memberview_year.setEnabled(false);
+		tf_health_memberview_year.setColumns(10);
+		tf_health_memberview_year.setBounds(107, 173, 57, 24);
+		layeredPane.add(tf_health_memberview_year);
+
+		tf_health_memberview_weight = new JTextField();
+		tf_health_memberview_weight.setEnabled(false);
+		tf_health_memberview_weight.setColumns(10);
+		tf_health_memberview_weight.setBounds(107, 254, 100, 24);
+		layeredPane.add(tf_health_memberview_weight);
+
+		JLabel lb_health_memberview_trainer = new JLabel("´ã´çÆ®·¹ÀÌ³Ê");
+		lb_health_memberview_trainer.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_health_memberview_trainer.setBounds(12, 376, 83, 26);
+		layeredPane.add(lb_health_memberview_trainer);
+
+		JButton btn_health_memberupdate = new JButton("Ãë ¼Ò");
+		btn_health_memberupdate.setBounds(242, 566, 93, 36);
+		layeredPane.add(btn_health_memberupdate);
+
+		tf_health_memberview_height = new JTextField();
+		tf_health_memberview_height.setEnabled(false);
+		tf_health_memberview_height.setColumns(10);
+		tf_health_memberview_height.setBounds(107, 296, 100, 24);
+		layeredPane.add(tf_health_memberview_height);
+
+		JLabel lb_memberupdate_year = new JLabel("\uB144");
+		lb_memberupdate_year.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_memberupdate_year.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 15));
+		lb_memberupdate_year.setBounds(172, 172, 35, 24);
+		layeredPane.add(lb_memberupdate_year);
+
+		JButton btn_healthview_ok = new JButton("È® ÀÎ");
+		btn_healthview_ok.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // È®ÀÎ ´©¸£¸é Ã¢´ÝÈû
+				setVisible(false);
+			}
+		});
+		btn_healthview_ok.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 15));
+		btn_healthview_ok.setBounds(91, 426, 97, 23);
+		layeredPane.add(btn_healthview_ok);
+
+		JButton btn_healthview_rg = new JButton("Çï½º±â°£ µî·Ï");
+		btn_healthview_rg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // È¸¿øÀÇ Çï½º±â°£À» µî·ÏÇØÁÖ´Â
+															// ¹öÆ°ÀÌº¥Æ®
+				new HealthMemberTermDialog();
+
+			}
+		});
+		btn_healthview_rg.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 15));
+		btn_healthview_rg.setBounds(227, 426, 127, 23);
+		layeredPane.add(btn_healthview_rg);
+
+		JLabel lb_memberview_number = new JLabel("È¸¿ø¹øÈ£");
+		lb_memberview_number.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 12));
+		lb_memberview_number.setBounds(12, 23, 57, 15);
+		layeredPane.add(lb_memberview_number);
+
+		tf_member_number = new JTextField();
+		tf_member_number.setEnabled(false);
+		tf_member_number.setColumns(10);
+		tf_member_number.setBounds(107, 20, 116, 21);
+		layeredPane.add(tf_member_number);
+
+		tf_health_memberview_trainer = new JTextField();
+		tf_health_memberview_trainer.setEnabled(false);
+		tf_health_memberview_trainer.setColumns(10);
+		tf_health_memberview_trainer.setBounds(107, 378, 100, 24);
+		layeredPane.add(tf_health_memberview_trainer);
+
+		tf_health_memberview_month = new JTextField();
+		tf_health_memberview_month.setEnabled(false);
+		tf_health_memberview_month.setColumns(10);
+		tf_health_memberview_month.setBounds(202, 174, 57, 24);
+		layeredPane.add(tf_health_memberview_month);
+
+		tf_health_memberview_day = new JTextField();
+		tf_health_memberview_day.setEnabled(false);
+		tf_health_memberview_day.setColumns(10);
+		tf_health_memberview_day.setBounds(301, 174, 57, 24);
+		layeredPane.add(tf_health_memberview_day);
+
+		JLabel lb_healthview_month = new JLabel("¿ù");
+		lb_healthview_month.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_healthview_month.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 15));
+		lb_healthview_month.setBounds(265, 173, 35, 24);
+		layeredPane.add(lb_healthview_month);
+
+		JLabel lb_healthview_day = new JLabel("ÀÏ");
+		lb_healthview_day.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_healthview_day.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 15));
+		lb_healthview_day.setBounds(364, 172, 35, 24);
+		layeredPane.add(lb_healthview_day);
+
+		tf_health_memberview_gender = new JTextField();
+		tf_health_memberview_gender.setEnabled(false);
+		tf_health_memberview_gender.setColumns(10);
+		tf_health_memberview_gender.setBounds(107, 218, 57, 24);
+		layeredPane.add(tf_health_memberview_gender);
+
+		tf_health_memberview_pc = new JTextField();
+		tf_health_memberview_pc.setEnabled(false);
+		tf_health_memberview_pc.setColumns(10);
+		tf_health_memberview_pc.setBounds(107, 336, 76, 24);
+		layeredPane.add(tf_health_memberview_pc);
+
+		
+		//Date¿¡¼­ ³â¿ùÀÏ »Ì±âÀ§ÇØ ¾¸
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		//ÀÖ´ø °ª ÀÐÀ½
+		tf_member_number.setText(String.valueOf(StaticValues.getSvMemDto().getMem_no()));
+		tf_health_memberview_name.setText(StaticValues.getSvMemDto().getMem_name());
+		tf_health_memberview_phone.setText(StaticValues.getSvMemDto().getMem_tel());
+		tf_health_memberview_address.setText(StaticValues.getSvMemDto()	.getMem_addr());
+		
+		//Date¿¡¼­ ³â¿ùÀÏ »ÌÀ½
+		String mem_birth = sdf	.format(StaticValues.getSvMemDto().getMem_birth());
+		String year = mem_birth.substring(0, 4);
+		String month = mem_birth.substring(5, 7);
+		String day = mem_birth.substring(8, 10);
+		
+		//»Ì¾ÆÁø ³â¿ùÀÏÀ» ÅØ½ºÆ® ÇÊµå¿¡ »Ñ¸²
+		tf_health_memberview_year.setText(year);
+		tf_health_memberview_month.setText(month);
+		tf_health_memberview_day.setText(day);
+		
+		//³ª¸ÓÁöµµ ÅØ½ºÆ®ÇÊµå¿¡ ³ÖÀ½
+		tf_health_memberview_gender.setText(StaticValues.getSvMemDto().getMem_gender());
+		tf_health_memberview_height.setText(String.valueOf(StaticValues.getSvMemDto().getMem_height()));
+		tf_health_memberview_weight.setText(String.valueOf(StaticValues.getSvMemDto().getMem_weight()));
+		tf_health_memberview_trainer.setText(StaticValues.getSvMemDto().getTrainer_name());
+		tf_health_memberview_pc.setText(StaticValues.getSvMemDto().getMem_shape());
+		setVisible(true); // ¿©±â
+	}
+}

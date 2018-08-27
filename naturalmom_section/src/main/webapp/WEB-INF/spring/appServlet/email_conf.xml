@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--
+	메일 센더(전송자) bean 등록 (스프링이 제공; 이 빈이 알아서 javax.mail 사용) 
+	username, password등 생략한 비보안 로컬 stmp 서버 사용 예 
+-->
+<bean id="mailSender"
+	class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<property name="host" value="localhost"/>
+	<property name="port" value="25"/>
+	<property name="defaultEncoding" value="utf-8"/>
+</bean>
+
+
+<bean id="myEmailSvc"
+	class="com.nmom.soap.svc.member.MyEmailNotiImple">
+	<property name="mailSender" ref="mailSender"/>
+	<property name="velocityEngine" ref="velocityEngine"/>
+</bean>
+
+
+<bean id="velocityEngine"
+  class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+  <property name="velocityProperties">
+  	<props>
+            <prop key="resource.loader">class</prop>
+            <prop key="class.resource.loader.class">org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader</prop>
+            <prop key="input.encoding">UTF-8</prop>
+        <prop key="output.encoding">UTF-8</prop>
+        </props>
+  </property>
+ </bean>
+
+</beans>

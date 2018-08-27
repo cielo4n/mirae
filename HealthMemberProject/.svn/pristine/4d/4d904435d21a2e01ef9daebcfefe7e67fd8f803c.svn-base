@@ -1,0 +1,363 @@
+package health.ui;
+
+import health.database.MemberDao;
+import health.database.MemberDto;
+import health.database.TrainerDao;
+import health.value.StaticValues;
+import java.awt.*;
+import java.awt.event.*;
+import java.text.SimpleDateFormat;
+import javax.swing.*;
+
+//회원정보 수정하는 다이얼로그
+public class HSMemberUpdateDialog extends JDialog implements ActionListener {
+
+	private JTextField tf_health_memberupdate_name;
+	private JTextField tf_health_memberupdate_phone;
+	private JTextField tf_health_memberupdate_address;
+	private JTextField tf_health_memberupdate_year; // 그냥 연도
+	private JTextField tf_health_memberupdate_weight;
+	private JTextField tf_health_memberupdate_height;
+	private JTextField tf_member_number; // 회원번호
+
+	private JButton btn_health_member_ok;
+	private JButton btn_health_member_cancel;
+	private JButton btn_health_member_delete;
+
+	private JComboBox cb_health_memberupdate_trainer;
+	private JComboBox cb_health_memberupdate_gender;
+	private JComboBox cb_health_memberupdate_pc;
+	private JComboBox cb_memberupdate_month;
+	private JComboBox cb_memberupdate_day;
+
+	
+	public HSMemberUpdateDialog(HealthScreen owner) {
+		super(owner);
+		setResizable(false);
+		setModal(true);
+
+		setTitle("회원정보 수정");
+
+		setBounds(100, 100, 460, 520);
+		setLocationRelativeTo(null);
+
+		JLayeredPane layeredPane = new JLayeredPane();
+		getContentPane().add(layeredPane, BorderLayout.CENTER);
+
+		JLabel lb_health_memberupdate_name = new JLabel("이름");
+		lb_health_memberupdate_name.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		lb_health_memberupdate_name.setBounds(12, 58, 48, 18);
+		layeredPane.add(lb_health_memberupdate_name);
+
+		JLabel lb_health_memberupdate_phone = new JLabel("연락처");
+		lb_health_memberupdate_phone.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		lb_health_memberupdate_phone.setBounds(12, 93, 48, 18);
+		layeredPane.add(lb_health_memberupdate_phone);
+
+		JLabel lb_health_memberupdate_address = new JLabel("주소");
+		lb_health_memberupdate_address
+				.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		lb_health_memberupdate_address.setBounds(12, 136, 41, 15);
+		layeredPane.add(lb_health_memberupdate_address);
+
+		JLabel lb_health_memberupdate_birth = new JLabel("생년월일");
+		lb_health_memberupdate_birth.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		lb_health_memberupdate_birth.setBounds(12, 172, 68, 24);
+		layeredPane.add(lb_health_memberupdate_birth);
+
+		JLabel lb_health_memberupdate_pc = new JLabel("체형");
+		lb_health_memberupdate_pc.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		lb_health_memberupdate_pc.setBounds(12, 336, 48, 18);
+		layeredPane.add(lb_health_memberupdate_pc);
+
+		JLabel lb_health_memberupdate_height = new JLabel("키");
+		lb_health_memberupdate_height.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		lb_health_memberupdate_height.setBounds(12, 258, 57, 15);
+		layeredPane.add(lb_health_memberupdate_height);
+
+		JLabel lb_health_memberupdate_weight = new JLabel("몸무게");
+		lb_health_memberupdate_weight.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		lb_health_memberupdate_weight.setBounds(12, 299, 57, 15);
+		layeredPane.add(lb_health_memberupdate_weight);
+
+		JLabel lb_health_memberupdate_gender = new JLabel("성별");
+		lb_health_memberupdate_gender.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		lb_health_memberupdate_gender.setBounds(12, 218, 48, 18);
+		layeredPane.add(lb_health_memberupdate_gender);
+
+		tf_health_memberupdate_name = new JTextField();
+		tf_health_memberupdate_name.setColumns(10);
+		tf_health_memberupdate_name.setBounds(107, 58, 116, 21);
+		layeredPane.add(tf_health_memberupdate_name);
+
+		tf_health_memberupdate_phone = new JTextField();
+		tf_health_memberupdate_phone.setColumns(10);
+		tf_health_memberupdate_phone.setBounds(107, 92, 151, 21);
+		layeredPane.add(tf_health_memberupdate_phone);
+
+		tf_health_memberupdate_address = new JTextField();
+		tf_health_memberupdate_address.setColumns(10);
+		tf_health_memberupdate_address.setBounds(107, 131, 306, 25);
+		layeredPane.add(tf_health_memberupdate_address);
+
+		tf_health_memberupdate_year = new JTextField();
+		tf_health_memberupdate_year.setColumns(10);
+		tf_health_memberupdate_year.setBounds(107, 173, 41, 24);
+		layeredPane.add(tf_health_memberupdate_year);
+
+		tf_health_memberupdate_weight = new JTextField();
+		tf_health_memberupdate_weight.setColumns(10);
+
+		tf_health_memberupdate_weight.setBounds(107, 290, 50, 24);
+
+		layeredPane.add(tf_health_memberupdate_weight);
+
+		//성별 콤보박스 생성
+		cb_health_memberupdate_gender = new JComboBox();
+		cb_health_memberupdate_gender.setModel(new DefaultComboBoxModel(
+				new Object[] { "남성", "여성" }));
+		cb_health_memberupdate_gender.setBounds(107, 215, 68, 24);
+		layeredPane.add(cb_health_memberupdate_gender);
+
+		//체형 콤보박스 생성
+		cb_health_memberupdate_pc = new JComboBox();
+		cb_health_memberupdate_pc.setModel(new DefaultComboBoxModel(
+				new Object[] { "내배엽", "중배엽", "외배엽" }));
+		cb_health_memberupdate_pc.setBounds(107, 335, 93, 21);
+		layeredPane.add(cb_health_memberupdate_pc);
+
+		JLabel lb_health_memberupdate_trainer = new JLabel("담당트레이너");
+		lb_health_memberupdate_trainer
+				.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		lb_health_memberupdate_trainer.setBounds(12, 376, 83, 26);
+		layeredPane.add(lb_health_memberupdate_trainer);
+
+		JButton btn_health_memberupdate = new JButton("취 소");
+		btn_health_memberupdate.setBounds(242, 566, 93, 36);
+		layeredPane.add(btn_health_memberupdate);
+
+		tf_health_memberupdate_height = new JTextField();
+		tf_health_memberupdate_height.setColumns(10);
+
+		tf_health_memberupdate_height.setBounds(107, 254, 50, 24);
+		layeredPane.add(tf_health_memberupdate_height);
+
+		//트레이너 콤보박스 생성
+		cb_health_memberupdate_trainer = new JComboBox();
+		cb_health_memberupdate_trainer.setModel(TrainerDao.getInstance()
+				.trainerCombo(StaticValues.getSvGym_id()));
+		cb_health_memberupdate_trainer.setBounds(107, 379, 93, 21);
+		layeredPane.add(cb_health_memberupdate_trainer);
+
+		JButton btn_health_member_update = new JButton("확 인");
+		btn_health_memberupdate.setBounds(113, 566, 93, 36);
+		layeredPane.add(btn_health_member_update);
+
+		cb_memberupdate_month = new JComboBox();
+
+		//월 콤보박스
+		cb_memberupdate_month.setModel(new DefaultComboBoxModel(new Object[] {
+				1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 }));
+
+		cb_memberupdate_month.setBounds(173, 173, 50, 24);
+		layeredPane.add(cb_memberupdate_month);
+
+		JLabel lb_memberupdate_year = new JLabel("년");
+		lb_memberupdate_year.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_memberupdate_year.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_memberupdate_year.setBounds(140, 173, 35, 24);
+		layeredPane.add(lb_memberupdate_year);
+
+		JLabel lb_memberupdate_month = new JLabel("월");
+		lb_memberupdate_month.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_memberupdate_month.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_memberupdate_month.setBounds(220, 173, 35, 24);
+		layeredPane.add(lb_memberupdate_month);
+
+		JLabel lb_memberupdate_day = new JLabel("일");
+		lb_memberupdate_day.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_memberupdate_day.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		lb_memberupdate_day.setBounds(302, 173, 35, 24);
+		layeredPane.add(lb_memberupdate_day);
+
+		//일 콤보박스
+		cb_memberupdate_day = new JComboBox();
+		cb_memberupdate_day.setModel(new DefaultComboBoxModel(new Object[] { 1,
+				2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+				20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 }));
+		cb_memberupdate_day.setBounds(254, 173, 50, 24);
+		layeredPane.add(cb_memberupdate_day);
+
+		btn_health_member_ok = new JButton("확 인");
+		btn_health_member_ok.addActionListener(this);
+
+		btn_health_member_ok.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_member_ok.setBounds(58, 426, 97, 23);
+		layeredPane.add(btn_health_member_ok);
+
+		btn_health_member_cancel = new JButton("취 소");
+		btn_health_member_cancel.addActionListener(this);
+
+		btn_health_member_cancel.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_member_cancel.setBounds(172, 426, 97, 23);
+		layeredPane.add(btn_health_member_cancel);
+
+		btn_health_member_delete = new JButton("회원삭제");
+		btn_health_member_delete.addActionListener(this);
+
+		btn_health_member_delete.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		btn_health_member_delete.setBounds(284, 426, 97, 23);
+		layeredPane.add(btn_health_member_delete);
+
+		JLabel lb_member_number = new JLabel("회원번호");
+		lb_member_number.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		lb_member_number.setBounds(12, 23, 57, 15);
+		layeredPane.add(lb_member_number);
+
+		tf_member_number = new JTextField();
+		tf_member_number.setEnabled(false);
+		tf_member_number.setColumns(10);
+		tf_member_number.setBounds(107, 20, 20, 21);
+		layeredPane.add(tf_member_number);
+
+		// Date에서 년월일 뽑기위해 데이트포멧 설정
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		// StaticValues에 저장되어 있던 값 읽어서 텍스트 필드에 뿌림
+		tf_member_number.setText(String.valueOf(StaticValues.getSvMemDto()
+				.getMem_no()));
+		tf_health_memberupdate_name.setText(StaticValues.getSvMemDto()
+				.getMem_name());
+		tf_health_memberupdate_phone.setText(StaticValues.getSvMemDto()
+				.getMem_tel());
+		tf_health_memberupdate_address.setText(StaticValues.getSvMemDto()
+				.getMem_addr());
+
+		//Date를 포멧형태(년-월-일)로 읽어들음
+		String mem_birth = sdf	.format(StaticValues.getSvMemDto().getMem_birth());
+		
+		//포멧 형태에서 년을 뽑음
+		String year = mem_birth.substring(0, 4);
+		//포멧 형태에서 월을 뽑음
+		int month = Integer.parseInt(mem_birth.substring(5, 7));
+		//포멧 형태에서 일을 뽑음
+		int day = Integer.parseInt(mem_birth.substring(8, 10));
+
+		//뽑아진 년월일을 넣음
+		tf_health_memberupdate_year.setText(year); //년 넣음
+		cb_memberupdate_month.setSelectedItem(month); // 콤보박스월
+		cb_memberupdate_day.setSelectedItem(day); // 콤보박스일
+		
+		tf_health_memberupdate_height.setText(String.valueOf(StaticValues
+				.getSvMemDto().getMem_height()));
+		tf_health_memberupdate_weight.setText(String.valueOf(StaticValues
+				.getSvMemDto().getMem_weight()));
+	
+		//콤보박스에서 성별, 체형, 트레이너 이름 뽑음
+		cb_health_memberupdate_gender.setSelectedItem(StaticValues
+				.getSvMemDto().getMem_gender()); // 콤보박스 성별
+		cb_health_memberupdate_pc.setSelectedItem(StaticValues.getSvMemDto()
+				.getMem_shape()); // 콤보박스 체형
+		
+//		cb_health_memberupdate_trainer.setModel(TrainerDao.getInstance()
+//				.trainerCombo(StaticValues.getSvGym_id()));
+		
+		//StaticValue에 저장된 트레이너 번호와 이름을 가져와서, 콤보박스에서 트레이너를 선택
+		cb_health_memberupdate_trainer.setSelectedItem(StaticValues.getSvMemDto().getTrainer_no()
+				+ "　"+ StaticValues.getSvMemDto().getTrainer_name()); // 콤보박스 트레이너이름
+
+		setVisible(true); // 여기 끝에둠
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		Object obj = ae.getSource();
+		
+		if (obj == btn_health_member_ok) { // 확인을 누르면
+			//회원의 정보가 수정되는버튼이벤트
+			
+			MemberDto md;
+			int mem_year;
+			double mem_weight;
+			double mem_height;
+
+			String mem_name = tf_health_memberupdate_name.getText();
+			String mem_tel = tf_health_memberupdate_phone.getText();
+			String mem_addr = tf_health_memberupdate_address.getText();
+
+			try { //회원 생년월일의 년을 모두 숫자로 받았는 지 확인
+				mem_year = Integer.parseInt(tf_health_memberupdate_year
+						.getText());
+			} catch (Exception ie) { //숫자가 아니면 예외처리
+				WarningMessage.inputYearFailure();
+				return;
+			}
+			
+			//콤보박스에 선택된 값 읽어옴
+			int mem_month = (Integer) cb_memberupdate_month.getSelectedItem();
+			int mem_day = (Integer) cb_memberupdate_day.getSelectedItem();
+
+			try { //회원 키를 모두 숫자로 받았는지 확인
+				mem_height = Double.parseDouble(tf_health_memberupdate_height
+						.getText());
+			} catch (Exception ie) { //숫자가 아니면 예외처리
+				WarningMessage.inputHeightFailure();
+				return;
+			}
+
+			try { //회원 몸무게를 모두 숫자로 받았는지 확인
+				mem_weight = Double.parseDouble(tf_health_memberupdate_weight
+						.getText());
+			} catch (Exception ie) { //숫자가 아니면 예외처리
+				WarningMessage.inputWeightFailure();
+				return;
+			}
+		
+			int mem_no = Integer.parseInt(tf_member_number.getText());
+
+			//콤보박스에 선택된 값 읽어옴
+			String mem_trainer = (String) cb_health_memberupdate_trainer
+					.getSelectedItem();
+			String mem_gender = (String) cb_health_memberupdate_gender
+					.getSelectedItem();
+			String mem_shape = (String) cb_health_memberupdate_pc
+					.getSelectedItem();
+
+			//위에 화면에 읽어왔던 값을 저장한 변수를 가지고 새로운 회원 객체를 생성 
+			md = new MemberDto(StaticValues.getSvGym_id(), mem_no, mem_name,
+					mem_tel, mem_addr, mem_year, mem_month, mem_day,
+					mem_gender, mem_height, mem_weight, mem_shape, mem_trainer);
+
+			//데이터베이스에 올려서 수정시킴
+			if (MemberDao.getInstance().updateMember(md) == true)
+				WarningMessage.memberUpdate(); //제대로 수정되면 수정되었다는 창 띄움
+			
+			dispose(); //창 닫음
+
+		} else if (obj == btn_health_member_cancel) { //취소 버튼을 누르면
+			dispose(); //창 닫음
+			
+		} else if (obj == btn_health_member_delete) { //삭제 버튼을 누르면
+			//현재 보고있는 정보의 회원이 삭제됨
+			
+			//삭제 할지 말지 선택하는 JOptionPane 다이얼로그 창을 띄움
+			if (WarningMessage.memberDelete() == true) { 
+				//삭제하겠다고 선택했을 경우
+				
+				//데이터베이스에서 회원을 삭제함
+				MemberDao.getInstance().deleteMember(
+						StaticValues.getSvMemDto().getMem_no());
+				
+				//삭제되었다는 다이얼로그 띄움
+				WarningMessage.memberDeleteOK();
+				
+				dispose(); //삭제
+				
+			} else { //취소하겠다고 선택했을 경우
+				
+				//취소되었다는 다이얼로그 띄움
+				WarningMessage.memberDeleteCancel();
+			}
+		}
+	}
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bazak.alarmistiming.GameBubbleActivity"
+    android:background="#000000">
+
+    <com.bazak.alarmistiming.GameBubbleView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <TextView
+        android:id="@+id/temp0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="버블 터치"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:textColor="#ffffff"/>
+
+    <TextView
+        android:paddingLeft="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/temp0"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="모든 버블을 터뜨리세요"
+        android:textColor="#ffffff"/>
+
+    <TextView
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:id="@+id/bubble_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="0/10"
+        android:textSize="20sp"
+        android:textColor="#ffffff"/>
+
+    <Button
+        android:onClick="mOnClick"
+        android:id="@+id/btn_game_bubble_complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="확인"
+        android:visibility="invisible"/>
+</RelativeLayout>

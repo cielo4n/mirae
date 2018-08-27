@@ -1,0 +1,166 @@
+package health.ui;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JPasswordField;
+
+public class HealthUpdate extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
+	private JTextField tf_healthupdate_id;
+	private JTextField tf_healthupdate_name;
+	private JTextField tf_healthupdate_number;
+	private JTextField tf_healthupdate_phone;
+	private JTextField tf_healthupdate_address;
+	private JPasswordField tf_healthupdate_pw;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			HealthUpdate dialog = new HealthUpdate(new HealthMainScreen());
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public HealthUpdate(final HealthMainScreen owner) {
+		super(owner);
+		setModal(true);
+		setResizable(false);
+		setTitle("헬스장 정보수정");
+		setBounds(100, 100, 400, 450);
+		getContentPane().setLayout(null);
+		contentPanel.setLayout(new FlowLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+		{
+			JLabel lb_healthupdate_id = new JLabel("아이디");
+			lb_healthupdate_id.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+			lb_healthupdate_id.setBounds(12, 50, 75, 22);
+			getContentPane().add(lb_healthupdate_id);
+		}
+		{
+			JLabel lb_healthupdate_pw = new JLabel("비밀번호");
+			lb_healthupdate_pw.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+			lb_healthupdate_pw.setBounds(12, 99, 75, 22);
+			getContentPane().add(lb_healthupdate_pw);
+		}
+		{
+			JLabel lb_healthupdate_name = new JLabel("헬스장 이름");
+			lb_healthupdate_name.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+			lb_healthupdate_name.setBounds(12, 167, 75, 22);
+			getContentPane().add(lb_healthupdate_name);
+		}
+		{
+			JLabel lb_healthupdate_number = new JLabel("사업자 등록번호");
+			lb_healthupdate_number.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+			lb_healthupdate_number.setBounds(12, 211, 96, 22);
+			getContentPane().add(lb_healthupdate_number);
+		}
+		{
+			JLabel lb_healthupdate_phone = new JLabel("연락처");
+			lb_healthupdate_phone.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+			lb_healthupdate_phone.setBounds(12, 254, 75, 22);
+			getContentPane().add(lb_healthupdate_phone);
+		}
+		{
+			JLabel lb_healthupdate_address = new JLabel("주소");
+			lb_healthupdate_address.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+			lb_healthupdate_address.setBounds(12, 297, 75, 22);
+			getContentPane().add(lb_healthupdate_address);
+		}
+		{
+			JButton btn_healthupdate_ok = new JButton("확 인");
+//			btn_healthupdate_ok.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent e) { // 확인버튼누르면 변경된 헬스장정보가 저장됨
+//				}
+//			});
+			btn_healthupdate_ok.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+			btn_healthupdate_ok.setBounds(76, 362, 97, 23);
+			getContentPane().add(btn_healthupdate_ok);
+		}
+		{
+			JButton btn_healthupdate_cancel = new JButton("취 소");
+			btn_healthupdate_cancel.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+			btn_healthupdate_cancel.setBounds(205, 362, 97, 23);
+			btn_healthupdate_cancel.addActionListener(
+				    new ActionListener() {
+				   public void actionPerformed(ActionEvent e) {
+				    setVisible(false);// 다이알로그의 오케이버튼 누르면 창 안보이는 이벤트
+				   }
+				  }
+				    );
+			getContentPane().add(btn_healthupdate_cancel);
+		}
+		{
+			tf_healthupdate_id = new JTextField();
+			tf_healthupdate_id.setEnabled(false);
+			tf_healthupdate_id.setBounds(120, 52, 145, 22);
+			getContentPane().add(tf_healthupdate_id);
+			tf_healthupdate_id.setColumns(10);
+		}
+		{
+			tf_healthupdate_name = new JTextField();
+			tf_healthupdate_name.setColumns(10);
+			tf_healthupdate_name.setBounds(120, 169, 145, 22);
+			getContentPane().add(tf_healthupdate_name);
+		}
+		{
+			tf_healthupdate_number = new JTextField();
+			tf_healthupdate_number.setColumns(10);
+			tf_healthupdate_number.setBounds(120, 213, 145, 22);
+			getContentPane().add(tf_healthupdate_number);
+		}
+		{
+			tf_healthupdate_phone = new JTextField();
+			tf_healthupdate_phone.setColumns(10);
+			tf_healthupdate_phone.setBounds(120, 256, 145, 22);
+			getContentPane().add(tf_healthupdate_phone);
+		}
+		{
+			tf_healthupdate_address = new JTextField();
+			tf_healthupdate_address.setColumns(10);
+			tf_healthupdate_address.setBounds(120, 299, 233, 22);
+			getContentPane().add(tf_healthupdate_address);
+		}
+		
+		tf_healthupdate_pw = new JPasswordField();
+		tf_healthupdate_pw.setEnabled(false);
+		tf_healthupdate_pw.setBounds(120, 101, 145, 23);
+		getContentPane().add(tf_healthupdate_pw);
+		setVisible(true);
+	}
+}

@@ -1,0 +1,191 @@
+package health.ui;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.Font;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.AbstractListModel;
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
+import javax.swing.JSplitPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+public class HealthTrainerUpdateDialog extends JDialog {
+ private JTextField tf_trainerupdate_name;
+ private JTextField tf_trainerupdate_phone;
+ private JTextField tf_trainerupdate_address;
+ private JTextField tf_trainerupdate_year;
+ private JTextField tf_trainerupdate_career;
+ private JTextField tf_trainerupdate_number;
+ /**
+  * Launch the application.
+  */
+ public static void main(String[] args) {
+	 
+	 
+  EventQueue.invokeLater(new Runnable() {
+   public void run() {
+    try {
+    	HealthTrainerUpdateDialog dialog = new HealthTrainerUpdateDialog(new HealthMainScreen()); //여기
+     dialog.setVisible(true);
+    } catch (Exception e) {
+     e.printStackTrace();
+    }
+   }
+  });
+ }
+ /**
+  * Create the frame.
+  */
+ public HealthTrainerUpdateDialog(final HealthMainScreen owner) { //여기
+	 super(owner);
+	 setResizable(false);
+	 setModal(true);
+
+	 setTitle("트레이너 수정");
+	 
+  setBounds(100, 100, 460, 410);
+  
+  JLayeredPane layeredPane = new JLayeredPane();
+  getContentPane().add(layeredPane, BorderLayout.CENTER);
+  
+  JLabel lb_trainerupdate_name = new JLabel("이름");
+  lb_trainerupdate_name.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_trainerupdate_name.setBounds(12, 58, 48, 18);
+  layeredPane.add(lb_trainerupdate_name);
+  
+  JLabel lb_trainerupdate_phone = new JLabel("연락처");
+  lb_trainerupdate_phone.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_trainerupdate_phone.setBounds(12, 93, 48, 18);
+  layeredPane.add(lb_trainerupdate_phone);
+  
+  JLabel lb_trainerupdate_address = new JLabel("주소");
+  lb_trainerupdate_address.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_trainerupdate_address.setBounds(12, 136, 41, 15);
+  layeredPane.add(lb_trainerupdate_address);
+  
+  JLabel lb_trainerupdate_birth = new JLabel("생년월일");
+  lb_trainerupdate_birth.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_trainerupdate_birth.setBounds(12, 172, 68, 24);
+  layeredPane.add(lb_trainerupdate_birth);
+  
+  JLabel lb_trainerupdate_career = new JLabel("경 력");
+  lb_trainerupdate_career.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_trainerupdate_career.setBounds(12, 258, 57, 15);
+  layeredPane.add(lb_trainerupdate_career);
+  
+  JLabel lb_trainerupdate_gender = new JLabel("성별");
+  lb_trainerupdate_gender.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_trainerupdate_gender.setBounds(12, 218, 48, 18);
+  layeredPane.add(lb_trainerupdate_gender);
+  
+  tf_trainerupdate_name = new JTextField();
+  tf_trainerupdate_name.setColumns(10);
+  tf_trainerupdate_name.setBounds(107, 58, 116, 21);
+  layeredPane.add(tf_trainerupdate_name);
+  
+  tf_trainerupdate_phone = new JTextField();
+  tf_trainerupdate_phone.setColumns(10);
+  tf_trainerupdate_phone.setBounds(107, 92, 151, 21);
+  layeredPane.add(tf_trainerupdate_phone);
+  
+  tf_trainerupdate_address = new JTextField();
+  tf_trainerupdate_address.setColumns(10);
+  tf_trainerupdate_address.setBounds(107, 131, 306, 25);
+  layeredPane.add(tf_trainerupdate_address);
+  
+  tf_trainerupdate_year = new JTextField();
+  tf_trainerupdate_year.setColumns(10);
+  tf_trainerupdate_year.setBounds(107, 173, 57, 24);
+  layeredPane.add(tf_trainerupdate_year);
+  
+  tf_trainerupdate_career = new JTextField();
+  tf_trainerupdate_career.setColumns(10);
+  tf_trainerupdate_career.setBounds(107, 254, 100, 24);
+  layeredPane.add(tf_trainerupdate_career);
+  
+  JButton btn_health_memberupdate = new JButton("취 소");
+  btn_health_memberupdate.setBounds(242, 566, 93, 36);
+  layeredPane.add(btn_health_memberupdate);
+  
+  JButton btn_health_member_update = new JButton("확 인");
+  btn_health_memberupdate.setBounds(113, 566, 93, 36);
+  layeredPane.add(btn_health_member_update);
+  
+  JLabel lb_trainerbirth_year = new JLabel("년");
+  lb_trainerbirth_year.setHorizontalAlignment(SwingConstants.CENTER);
+  lb_trainerbirth_year.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+  lb_trainerbirth_year.setBounds(172, 172, 35, 24);
+  layeredPane.add(lb_trainerbirth_year);
+  
+  JButton btn_trainerupdate_ok = new JButton("확 인");
+//  btn_trainerupdate_ok.addActionListener(new ActionListener() {
+//  	public void actionPerformed(ActionEvent e) { // 확인누르면 트레이너정보가 수정되는이벤트
+//  	}
+//  });
+  btn_trainerupdate_ok.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+  btn_trainerupdate_ok.setBounds(37, 323, 97, 23);
+  layeredPane.add(btn_trainerupdate_ok);
+  
+  JLabel lb_trainerupdate_number = new JLabel("트레이너 번호");
+  lb_trainerupdate_number.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+  lb_trainerupdate_number.setBounds(12, 23, 83, 18);
+  layeredPane.add(lb_trainerupdate_number);
+  
+  tf_trainerupdate_number = new JTextField();
+  tf_trainerupdate_number.setEnabled(false);
+  tf_trainerupdate_number.setColumns(10);
+  tf_trainerupdate_number.setBounds(107, 20, 116, 21);
+  layeredPane.add(tf_trainerupdate_number);
+  
+  JButton btn_trainerupdate_cancel = new JButton("취소");
+  btn_trainerupdate_cancel.addActionListener(new ActionListener() {
+  	public void actionPerformed(ActionEvent e) { // 취소누르면 창닫힘
+  		setVisible(false);
+  	}
+  });
+  btn_trainerupdate_cancel.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+  btn_trainerupdate_cancel.setBounds(172, 323, 97, 23);
+  layeredPane.add(btn_trainerupdate_cancel);
+  
+  JButton btn_trainerupdate_delete = new JButton("트레이너 삭제");
+//  btn_trainerupdate_delete.addActionListener(new ActionListener() {
+//  	public void actionPerformed(ActionEvent e) { // 트레이너 삭제누르면 트레이너가 삭제되는 이벤트
+//  	}
+//  });
+  btn_trainerupdate_delete.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+  btn_trainerupdate_delete.setBounds(301, 323, 131, 23);
+  layeredPane.add(btn_trainerupdate_delete);
+  
+  JComboBox cb_trainerupdate_month = new JComboBox();
+  cb_trainerupdate_month.setModel(new DefaultComboBoxModel(new String[] {"1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"}));
+  cb_trainerupdate_month.setBounds(206, 173, 62, 24);
+  layeredPane.add(cb_trainerupdate_month);
+  
+  JComboBox cb_trainerupdate_day = new JComboBox();
+  cb_trainerupdate_day.setModel(new DefaultComboBoxModel(new String[] {"1일", "2일", "3일", "4일", "5일", "6일", "7일", "8일", "9일", "10일", "11일", "12일", "13일", "14일", "15일", "16일", "17일", "18일", "19일", "21일", "22일", "23일", "24일", "25일", "26일", "27일", "28일", "29일", "30일", "31일"}));
+  cb_trainerupdate_day.setBounds(282, 173, 62, 24);
+  layeredPane.add(cb_trainerupdate_day);
+  
+  JComboBox cb_trainerupdate_gender = new JComboBox();
+  cb_trainerupdate_gender.setModel(new DefaultComboBoxModel(new String[] {"남성", "여성"}));
+  cb_trainerupdate_gender.setBounds(107, 216, 68, 24);
+  layeredPane.add(cb_trainerupdate_gender);
+  
+  JLabel lb_trainerupdate_year1 = new JLabel("년");
+  lb_trainerupdate_year1.setHorizontalAlignment(SwingConstants.CENTER);
+  lb_trainerupdate_year1.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+  lb_trainerupdate_year1.setBounds(206, 252, 35, 24);
+  layeredPane.add(lb_trainerupdate_year1);
+  setVisible(true); //여기
+ }
+}

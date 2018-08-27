@@ -1,0 +1,281 @@
+package health.database;
+
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import javax.swing.table.DefaultTableModel;
+
+//회원 데이터베이스에 접근하는 DAO(Data Access Object)클래스
+public class MemberDao {
+
+	//유일하게 자기 자신을 참조할 수 있는 변수
+	private static MemberDao instance; 
+	
+	//데이터베이스 정보
+	private static final String DBName="healthdb"; //데이터베이스이름은 이거로 한다
+	private static final String DBUser = "root";
+	private static final String DBPassword = "123456";
+	
+	private String url= "jdbc:mysql://localhost/"+DBName;
+	private String jdbc_driver = "com.mysql.jdbc.Driver";
+	
+	private static Connection conn = null;
+	private static Statement stmt = null;
+	private static PreparedStatement pstmt = null;
+	private static ResultSet rs = null;
+	private static String sql = null;
+
+	//private 생성자
+	private MemberDao(){
+		try{
+			Class.forName(jdbc_driver); //드라이버 로드
+			conn = DriverManager.getConnection(url, DBUser, DBPassword); //Connection 연결
+		} catch(ClassNotFoundException e){
+			System.out.println("드라이버를 찾을 수 없습니다");
+		} catch(SQLException e) {
+			System.out.println("Connection 연결 실패");
+		} 
+	}
+	
+	//public 자기자신 반환
+	public static MemberDao getInstance() {
+		if(instance == null) //참조변수가 null일 때는 생성자 호출
+			instance = new MemberDao();
+		return instance;
+	}
+
+	//연결 종료
+	private void disConnect(){
+		try{
+			if(rs != null) rs.close();
+			if(stmt != null) stmt.close();
+			if(pstmt != null) pstmt.close();
+//			if(conn != null) conn.close();
+		} catch(SQLException e) {
+			System.out.println("종료 안됨");
+			e.printStackTrace();
+		}
+	}
+	
+	//회원 조회(전부), 테이블에 연결하게 DefaultTableModel을 반환
+	//헬스장에 해당하는 회원 조회
+	public DefaultTableModel selectMemberAll(String gym_id){
+		String colNames[] = {"회원번호", "이름", "생년월일", "연락처", "주소"};
+		DefaultTableModel model = new DefaultTableModel(colNames, 0){
+			 public boolean isCellEditable(int row, int column) //무명클래스(자식)을 오버라이딩
+	         {
+	            return false; //수정불가
+	         }
+		};
+
+		try{
+			stmt = conn.createStatement();
+			sql = "SELECT mem_no, mem_name, mem_birth, mem_tel, mem_addr FROM member WHERE gym_id='"+gym_id+"'";
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()){
+				model.addRow(new Object[]{
+						rs.getInt("mem_no"), rs.getString("mem_name"), rs.getDate("mem_birth"), 
+						rs.getString("mem_tel"), rs.getString("mem_addr")
+				});
+			}
+			return model;
+		} catch(SQLException e){
+			System.out.println("selectMember 실패");
+			e.printStackTrace();
+			return null;
+		}
+ 		finally{
+			disConnect();
+		}
+	}
+
+	//회원 조회(이름 검색)
+	//헬스장에 해당하는 회원 조회
+	public DefaultTableModel selectMemberSearch(String gym_id, String mem_name){
+		String colNames[] = {"회원번호", "이름", "생년월일", "연락처", "주소"};
+		DefaultTableModel model = new DefaultTableModel(colNames, 0){
+			 public boolean isCellEditable(int row, int column) //무명클래스(자식)을 오버라이딩
+	         {
+	            return false; //수정불가
+	         }
+		};
+		
+		try{
+			stmt = conn.createStatement();
+			sql = "SELECT mem_no, mem_name, mem_birth, mem_tel, mem_addr FROM member WHERE mem_name='"+mem_name+"' AND gym_id='"+gym_id+"'";
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()){
+				model.addRow(new Object[]{
+						rs.getInt("mem_no"), rs.getString("mem_name"), rs.getDate("mem_birth"), 
+						rs.getString("mem_tel"), rs.getString("mem_addr")
+				});
+			}
+			return model;
+		} catch(SQLException e){
+			System.out.println("selectMember 실패");
+			e.printStackTrace();
+			return null;
+		} finally {
+			disConnect();
+		}
+	}
+	
+	//회원 조회(상세보기)
+	public MemberDto selectMember(int mem_no){
+		MemberDto m = null;
+		
+		try{
+			stmt = conn.createStatement();
+			sql = "SELECT member.mem_no, member.mem_name, member.mem_tel, member.mem_addr, member.mem_birth, member.mem_gender, member.mem_height, member.mem_weight, member.mem_shape, trainer.trainer_name, member.trainer_no, member.gym_id FROM member LEFT JOIN trainer ON member.trainer_no=trainer.trainer_no WHERE member.mem_no='"+mem_no+"'";
+			rs = stmt.executeQuery(sql);
+			
+			m = new MemberDto();
+			
+			while(rs.next()){
+				
+				m.setMem_no(rs.getInt("mem_no"));
+				m.setMem_name(rs.getString("mem_name"));
+				m.setMem_tel(rs.getString("mem_tel"));
+				m.setMem_addr(rs.getString("mem_addr"));
+				m.setMem_birth(rs.getDate("mem_birth"));
+				m.setMem_gender(rs.getString("mem_gender"));
+				m.setMem_height(rs.getFloat("mem_height"));
+				m.setMem_weight(rs.getFloat("mem_weight"));
+				m.setMem_shape(rs.getString("mem_shape"));
+				m.setTrainer_name(rs.getString("trainer_name"));
+				m.setTrainer_no(rs.getInt("member.trainer_no"));
+				m.setGym_id(rs.getString("member.gym_id"));
+				
+			}
+			return m;
+		} catch(SQLException e){
+			System.out.println("selectMember 실패");
+			e.printStackTrace();
+			return null;
+		} finally{
+			disConnect();
+		}
+	}
+
+	//새 회원 등록
+	public boolean insertNewMember(MemberDto md, RegDto rd){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		try{
+			sql = "INSERT INTO member VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, md.getMem_name());
+			pstmt.setString(2, md.getMem_tel());
+			pstmt.setString(3, md.getMem_addr());
+			pstmt.setString(4, sdf.format(md.getMem_birth()));
+			pstmt.setString(5, md.getMem_gender());
+			pstmt.setFloat(6, md.getMem_height());
+			pstmt.setFloat(7, md.getMem_weight());
+			pstmt.setString(8, md.getMem_shape());
+			pstmt.setInt(9, md.getTrainer_no());
+			pstmt.setString(10, md.getGym_id());
+					
+			int result = pstmt.executeUpdate();
+
+			if(result != 1) {
+				System.out.println("삽입안됨");
+				return false;
+			}
+			
+			//방금 삽입된 회원번호를 꺼내옴
+			sql = "SELECT mem_no FROM member "
+					+ "WHERE mem_name=? "
+					+ "AND mem_tel=? "
+					+ "AND mem_addr=? "
+					+ "AND mem_birth=? "
+					+ "AND mem_gender=? "
+					+ "AND mem_height=? "
+					+ "AND mem_weight=? "
+					+ "AND mem_shape=? "
+					+ "AND trainer_no=? "
+					+ "AND gym_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, md.getMem_name());
+			pstmt.setString(2, md.getMem_tel());
+			pstmt.setString(3, md.getMem_addr());
+			pstmt.setString(4, sdf.format(md.getMem_birth()));
+			pstmt.setString(5, md.getMem_gender());
+			pstmt.setFloat(6, md.getMem_height());
+			pstmt.setFloat(7, md.getMem_weight());
+			pstmt.setString(8, md.getMem_shape());
+			pstmt.setInt(9, md.getTrainer_no());
+			pstmt.setString(10, md.getGym_id());
+
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				md.setMem_no(rs.getInt("mem_no"));
+			} //회원번호 꺼내오기 완료
+			
+			if((RegDao.getInstance().insertReg(md.getGym_id(), md.getMem_no(), rd))==false)
+				return false;
+			else 
+				return true;
+			
+		} catch(SQLException e){
+			System.out.println("insertNewMember 실패");
+			e.printStackTrace();
+			return false;
+		} finally{
+			disConnect();
+		}
+	}
+	
+	//회원 수정
+	public boolean updateMember(MemberDto md){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		try{
+			sql = "UPDATE member SET mem_name=?, mem_tel=?, mem_addr=?, mem_birth=?, mem_gender=?, mem_height=?, mem_weight=?, mem_shape=?, trainer_no=? WHERE mem_no='"+md.getMem_no()+"'";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, md.getMem_name());
+			pstmt.setString(2, md.getMem_tel());
+			pstmt.setString(3, md.getMem_addr());
+			pstmt.setString(4, sdf.format(md.getMem_birth()));
+			pstmt.setString(5, md.getMem_gender());
+			pstmt.setFloat(6, md.getMem_height());
+			pstmt.setFloat(7, md.getMem_weight());
+			pstmt.setString(8, md.getMem_shape());
+			pstmt.setInt(9, md.getTrainer_no());
+
+			int result = pstmt.executeUpdate();
+			
+			if(result == 1) 
+				return true;
+			else 
+				return false;
+			
+		} catch(SQLException e){
+			System.out.println("updateMember 실패");
+			e.printStackTrace();
+			return false;
+		} finally{
+			disConnect();
+		}
+	}
+
+	//회원 삭제하는 부분
+	public boolean deleteMember(int mom_no){
+		try{
+			stmt = conn.createStatement();
+			sql = "DELETE FROM member WHERE mem_no="+mom_no;
+			
+			int result = stmt.executeUpdate(sql);
+			
+			if(result == 1) return true;
+			else return false;
+		} catch(SQLException e){
+			System.out.println("deleteMember 실패");
+			e.printStackTrace();
+			return false;
+		} finally{
+			disConnect();
+		}
+	}
+}

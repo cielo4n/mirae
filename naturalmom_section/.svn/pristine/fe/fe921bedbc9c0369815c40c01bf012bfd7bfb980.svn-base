@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+
+/* 폰트 설정
+-----------------------------------*/
+@font-face { font-family:'나눔바른고딕'; src:url('../font/NanumBarunGothic.woff') format('woff'); }
+@font-face { font-family:'환경R'; src:url('../font/환경R.woff') format('woff'); }
+
+/*초기화 부분
+---------------------------------------*/
+* { margin : 0; padding : 0; }
+li { list-style-type : none; }
+a { text-decoration : none; }
+body { font : 16px "나눔바른고딕", "맑은 고딕", Arial; }
+
+nav { height : 36px; }
+nav li { font : 15px "환경R", "나눔바른고딕", "맑은 고딕",  Arial; }
+
+#admin_info_menu { background-color : #85858d; }
+#admin_info_menu h3 
+{ 
+	float: right; 
+	width : 150px;
+	padding-top : 10px;
+	font : 13px "환경R", "나눔바른고딕", "맑은 고딕", Arial; 
+	color : #eee;
+	text-align: center;
+}
+#admin_info_menu li { width : 97px;	float: right; }
+#admin_info_menu li a
+{
+	display : block;
+	padding-top : 9px;
+	padding-bottom : 8px;
+	color : #fff;
+	text-align : center;
+}
+#admin_info_menu li a:hover{ background-color : #AAAAB0; }
+
+#admin_menu { background-color : #635353; height: 38px; }
+#admin_menu li{ width : 97px; float: left; }
+#admin_menu li a
+{
+	display : block;
+	padding : 10px;
+	color : #fff;
+	text-align : center;
+}
+#admin_menu li a:hover { background-color : #918686; }
+
+#sub
+		{
+			position : absolute;
+			overflow : hidden;
+			width : 100px;
+			height : 0;
+			margin-left : 0px;
+			margin-right : 15px;
+			transition : height 1s ease-out;
+			-webkit-transition : height 1s ease-out;
+			-o-transition : height 1s ease-out;
+			-moz-transition : height 1s ease-out;
+		}
+
+		#sub li 
+		{ 
+			background-color : #626266;
+			margin : 0 -25px;
+			width : 150px;
+			text-align : center;
+			vertical-align : middle;
+			color: white;
+		}
+
+		nav ul li:hover #sub, #sub:hover { height : 210px; }

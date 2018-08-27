@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<!-- DAO -->
+	
+	<bean id="cart_dao" class="com.nmom.soap.data.impl.cart.CartDaoOraImpl">
+		<property name="dataSource" ref="ds"/>
+	</bean>	
+	<bean id="category_dao" class="com.nmom.soap.data.impl.category.CategoryDaoOraImpl">
+		<property name="dataSource" ref="ds"/>
+	</bean>	
+	<bean id="faq_dao" class="com.nmom.soap.data.impl.board.faq.FaqDaoOraImpl">
+		<property name="dataSource" ref="ds"/>
+	</bean>	
+	<bean id="interest_dao" class="com.nmom.soap.data.impl.interest.InterestDaoOraImpl">
+		<property name="dataSource" ref="ds"/>
+	</bean>	
+	<!-- 소라랑 겹침
+	<bean id="product_dao" class="com.nmom.soap.data.impl.product.ProductDaoOraImpl">
+		<property name="dataSource" ref="ds"/>
+	</bean>	
+	-->
+	<bean id="qna_dao" class="com.nmom.soap.data.impl.board.qna.QnaDaoOraImpl">
+		<property name="dataSource" ref="ds"/>
+	</bean>	
+	<bean id="qnare_dao" class="com.nmom.soap.data.impl.board.qna.QnaReDaoOraImpl">
+		<property name="dataSource" ref="ds"/>
+	</bean>	
+	<bean id="v_cart_product_dao" class="com.nmom.soap.data.impl.cart.VCartProductDaoOraImpl">
+		<property name="dataSource" ref="ds"/>
+	</bean>	
+	<bean id="v_interest_product_dao" class="com.nmom.soap.data.impl.interest.VInterestProductDaoOraImpl">
+		<property name="dataSource" ref="ds"/>
+	</bean>	
+	<bean id="v_qna_qnare_dao" class="com.nmom.soap.data.impl.board.qna.VQnaQnareDaoOraImpl">
+		<property name="dataSource" ref="ds"/>
+	</bean>	
+	
+	
+	<!-- SVC -->
+	
+	<!-- 소라랑 겹침
+	<bean id="product_svc" class="com.nmom.soap.svc.product.ProductSvcImpl">
+		<property name="productDao" ref="product_dao"/>
+	</bean>
+	-->
+	<bean id="faq_svc" class="com.nmom.soap.svc.board.faq.FaqSvcImpl">
+		<property name="faqDao" ref="faq_dao"/>
+	</bean>
+	<bean id="qna_svc" class="com.nmom.soap.svc.board.qna.QnaSvcImpl">
+		<property name="qnaDao" ref="qna_dao"/>
+	</bean>
+	<bean id="qnare_svc" class="com.nmom.soap.svc.board.qna.QnaReSvcImpl">
+		<property name="qnaReDao" ref="qnare_dao"/>
+	</bean>
+	<bean id="v_qna_qnare_svc" class="com.nmom.soap.svc.board.qna.VQnaQnareSvcImpl">
+		<property name="vQnaQnareDao" ref="v_qna_qnare_dao"/>
+	</bean>
+	<bean id="cart_svc" class="com.nmom.soap.svc.cart.CartSvcImpl">
+		<property name="cartDao" ref="cart_dao"/>
+	</bean>
+	<bean id="v_cart_product_svc" class="com.nmom.soap.svc.cart.VCartProductSvcImpl">
+		<property name="vCartProductDao" ref="v_cart_product_dao"/>
+	</bean>
+	<bean id="category_svc" class="com.nmom.soap.svc.category.CategorySvcImpl">
+		<property name="categoryDao" ref="category_dao"/>
+	</bean>
+	<bean id="interest_svc" class="com.nmom.soap.svc.interest.InterestSvcImpl">
+		<property name="interestDao" ref="interest_dao"/>
+	</bean>
+	<bean id="v_interest_product_svc" class="com.nmom.soap.svc.interest.VInterestProductImpl">
+		<property name="vInterestProductDao" ref="v_interest_product_dao"/>
+	</bean>
+
+</beans>
